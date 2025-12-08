@@ -207,6 +207,186 @@
             transform: none;
         }
 
+        /* Video Section Styles */
+        .video-section {
+            margin: 80px auto 120px;
+            animation: fadeInUp 0.8s ease 0.8s backwards;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            background: var(--dark-light);
+        }
+
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 24px;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(20px);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 26, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid white;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 4px;
+        }
+
+        .video-overlay:hover .play-button {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.7);
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(10, 10, 26, 0.9), transparent);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 11;
+        }
+
+        .video-wrapper:hover .video-controls {
+            opacity: 1;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 18px;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-filled {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .volume-filled {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            width: 100%;
+        }
+
         .notification {
             position: fixed;
             top: 30px;
@@ -376,6 +556,26 @@
             section {
                 margin-bottom: 80px;
             }
+
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+
+            .play-button::after {
+                border-left: 15px solid white;
+                border-top: 9px solid transparent;
+                border-bottom: 9px solid transparent;
+            }
+
+            .video-controls {
+                padding: 15px;
+                gap: 10px;
+            }
+
+            .volume-control {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -407,6 +607,44 @@
                 >
                 <button type="submit" class="cta-btn">Join Waitlist</button>
             </form>
+        </div>
+
+        <!-- Video Demo Section -->
+        <div class="video-section">
+            <div class="video-container">
+                <!-- <div class="video-wrapper">
+                    <video id="demoVideo" loop>
+                        <source src="videos/demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay" id="videoOverlay">
+                        <div class="play-button"></div>
+                    </div>
+                    <div class="video-controls">
+                        <button class="control-btn" id="playPauseBtn">▶</button>
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-filled" id="progressFilled"></div>
+                        </div>
+                        <div class="volume-control">
+                            <button class="control-btn" id="muteBtn">🔊</button>
+                            <div class="volume-slider" id="volumeSlider">
+                                <div class="volume-filled" id="volumeFilled"></div>
+                            </div>
+                        </div>
+                        <button class="control-btn" id="fullscreenBtn">⛶</button>
+                    </div>
+                </div> -->
+
+                <div class="video-wrapper">
+                    <iframe 
+                        id="youtubeVideo"
+                        src="https://www.youtube.com/embed/nDn8jw9-HRA?rel=0&modestbranding=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
         </div>
 
         <section>
@@ -497,14 +735,97 @@
     </div>
 
     <footer>
-        <div class="container">
-            <div class="footer-logo">FalconLink by ServaDrone</div>
-            <p class="footer-text">Building India's future in drone electronics, one innovation at a time.</p>
+    <div class="container">
+        <div class="footer-logo">FalconLink by ServaDrone</div>
+        <p class="footer-text">Building India's future in drone electronics, one innovation at a time.</p>
+        
+        <!-- ADD THIS -->
+        <div style="margin-top: 30px; display: flex; gap: 30px; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <a href="mailto:servadrone@gmail.com" style="color: var(--text-dim); text-decoration: none; transition: color 0.3s ease;">
+                📧 servadrone@gmail.com
+            </a>
+            <a href="https://www.youtube.com/@servadrone" target="_blank" style="color: var(--text-dim); text-decoration: none; transition: color 0.3s ease;">
+                📺 Visit us on YouTube
+            </a>
         </div>
-    </footer>
+    </div>
+</footer>
 
     <script>
         let isSubmitting = false;
+
+        // Video Player Controls
+        const video = document.getElementById('demoVideo');
+        const overlay = document.getElementById('videoOverlay');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFilled = document.getElementById('progressFilled');
+        const muteBtn = document.getElementById('muteBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeFilled = document.getElementById('volumeFilled');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+        // Play/Pause functionality
+        function togglePlay() {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.textContent = '⏸';
+                overlay.classList.add('hidden');
+            } else {
+                video.pause();
+                playPauseBtn.textContent = '▶';
+            }
+        }
+
+        overlay.addEventListener('click', togglePlay);
+        playPauseBtn.addEventListener('click', togglePlay);
+
+        // Progress bar update
+        video.addEventListener('timeupdate', () => {
+            const percent = (video.currentTime / video.duration) * 100;
+            progressFilled.style.width = percent + '%';
+        });
+
+        // Progress bar click
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            video.currentTime = percent * video.duration;
+        });
+
+        // Mute/Unmute
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            muteBtn.textContent = video.muted ? '🔇' : '🔊';
+            volumeFilled.style.width = video.muted ? '0%' : (video.volume * 100) + '%';
+        });
+
+        // Volume control
+        volumeSlider.addEventListener('click', (e) => {
+            const rect = volumeSlider.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            video.volume = percent;
+            volumeFilled.style.width = (percent * 100) + '%';
+            video.muted = false;
+            muteBtn.textContent = '🔊';
+        });
+
+        // Fullscreen
+        fullscreenBtn.addEventListener('click', () => {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        });
+
+        // Show overlay when video ends
+        video.addEventListener('ended', () => {
+            overlay.classList.remove('hidden');
+            playPauseBtn.textContent = '▶';
+        });
 
         async function loadStats() {
             try {
