@@ -207,7 +207,6 @@
             transform: none;
         }
 
-        /* Video Section Styles */
         .video-section {
             margin: 80px auto 120px;
             animation: fadeInUp 0.8s ease 0.8s backwards;
@@ -241,7 +240,7 @@
 
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
         }
@@ -252,139 +251,6 @@
             left: 0;
             width: 100%;
             height: 100%;
-        }
-
-        .video-wrapper video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 10, 26, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .video-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .play-button {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .play-button::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 20px solid white;
-            border-top: 12px solid transparent;
-            border-bottom: 12px solid transparent;
-            margin-left: 4px;
-        }
-
-        .video-overlay:hover .play-button {
-            transform: scale(1.1);
-            box-shadow: 0 15px 50px rgba(0, 212, 255, 0.7);
-        }
-
-        .video-controls {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            background: linear-gradient(to top, rgba(10, 10, 26, 0.9), transparent);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 11;
-        }
-
-        .video-wrapper:hover .video-controls {
-            opacity: 1;
-        }
-
-        .control-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 8px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: white;
-            font-size: 18px;
-        }
-
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        .progress-bar {
-            flex: 1;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .progress-filled {
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            width: 0%;
-            transition: width 0.1s linear;
-        }
-
-        .volume-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .volume-slider {
-            width: 80px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .volume-filled {
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            width: 100%;
         }
 
         .notification {
@@ -556,26 +422,6 @@
             section {
                 margin-bottom: 80px;
             }
-
-            .play-button {
-                width: 60px;
-                height: 60px;
-            }
-
-            .play-button::after {
-                border-left: 15px solid white;
-                border-top: 9px solid transparent;
-                border-bottom: 9px solid transparent;
-            }
-
-            .video-controls {
-                padding: 15px;
-                gap: 10px;
-            }
-
-            .volume-control {
-                display: none;
-            }
         }
     </style>
 </head>
@@ -609,32 +455,8 @@
             </form>
         </div>
 
-        <!-- Video Demo Section -->
         <div class="video-section">
             <div class="video-container">
-                <!-- <div class="video-wrapper">
-                    <video id="demoVideo" loop>
-                        <source src="videos/demo.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-overlay" id="videoOverlay">
-                        <div class="play-button"></div>
-                    </div>
-                    <div class="video-controls">
-                        <button class="control-btn" id="playPauseBtn">▶</button>
-                        <div class="progress-bar" id="progressBar">
-                            <div class="progress-filled" id="progressFilled"></div>
-                        </div>
-                        <div class="volume-control">
-                            <button class="control-btn" id="muteBtn">🔊</button>
-                            <div class="volume-slider" id="volumeSlider">
-                                <div class="volume-filled" id="volumeFilled"></div>
-                            </div>
-                        </div>
-                        <button class="control-btn" id="fullscreenBtn">⛶</button>
-                    </div>
-                </div> -->
-
                 <div class="video-wrapper">
                     <iframe 
                         id="youtubeVideo"
@@ -735,109 +557,42 @@
     </div>
 
     <footer>
-    <div class="container">
-        <div class="footer-logo">FalconLink by ServaDrone</div>
-        <p class="footer-text">Building India's future in drone electronics, one innovation at a time.</p>
-        
-        <!-- ADD THIS -->
-        <div style="margin-top: 30px; display: flex; gap: 30px; justify-content: center; align-items: center; flex-wrap: wrap;">
-            <a href="mailto:servadrone@gmail.com" style="color: var(--text-dim); text-decoration: none; transition: color 0.3s ease;">
-                📧 servadrone@gmail.com
-            </a>
-            <a href="https://www.youtube.com/@servadrone" target="_blank" style="color: var(--text-dim); text-decoration: none; transition: color 0.3s ease;">
-                📺 Visit us on YouTube
-            </a>
+        <div class="container">
+            <div class="footer-logo">FalconLink by ServaDrone</div>
+            <p class="footer-text">Building India's future in drone electronics, one innovation at a time.</p>
+            
+            <div style="margin-top: 30px; display: flex; gap: 30px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                <a href="mailto:servadrone@gmail.com" style="color: var(--text-dim); text-decoration: none; transition: color 0.3s ease;">
+                    📧 servadrone@gmail.com
+                </a>
+                <a href="https://www.youtube.com/@servadrone" target="_blank" style="color: var(--text-dim); text-decoration: none; transition: color 0.3s ease;">
+                    📺 Visit us on YouTube
+                </a>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
+        console.log('Script starting...');
         let isSubmitting = false;
 
-        // Video Player Controls
-        const video = document.getElementById('demoVideo');
-        const overlay = document.getElementById('videoOverlay');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const progressBar = document.getElementById('progressBar');
-        const progressFilled = document.getElementById('progressFilled');
-        const muteBtn = document.getElementById('muteBtn');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const volumeFilled = document.getElementById('volumeFilled');
-        const fullscreenBtn = document.getElementById('fullscreenBtn');
-
-        // Play/Pause functionality
-        function togglePlay() {
-            if (video.paused) {
-                video.play();
-                playPauseBtn.textContent = '⏸';
-                overlay.classList.add('hidden');
-            } else {
-                video.pause();
-                playPauseBtn.textContent = '▶';
-            }
-        }
-
-        overlay.addEventListener('click', togglePlay);
-        playPauseBtn.addEventListener('click', togglePlay);
-
-        // Progress bar update
-        video.addEventListener('timeupdate', () => {
-            const percent = (video.currentTime / video.duration) * 100;
-            progressFilled.style.width = percent + '%';
-        });
-
-        // Progress bar click
-        progressBar.addEventListener('click', (e) => {
-            const rect = progressBar.getBoundingClientRect();
-            const percent = (e.clientX - rect.left) / rect.width;
-            video.currentTime = percent * video.duration;
-        });
-
-        // Mute/Unmute
-        muteBtn.addEventListener('click', () => {
-            video.muted = !video.muted;
-            muteBtn.textContent = video.muted ? '🔇' : '🔊';
-            volumeFilled.style.width = video.muted ? '0%' : (video.volume * 100) + '%';
-        });
-
-        // Volume control
-        volumeSlider.addEventListener('click', (e) => {
-            const rect = volumeSlider.getBoundingClientRect();
-            const percent = (e.clientX - rect.left) / rect.width;
-            video.volume = percent;
-            volumeFilled.style.width = (percent * 100) + '%';
-            video.muted = false;
-            muteBtn.textContent = '🔊';
-        });
-
-        // Fullscreen
-        fullscreenBtn.addEventListener('click', () => {
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.webkitRequestFullscreen) {
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) {
-                video.msRequestFullscreen();
-            }
-        });
-
-        // Show overlay when video ends
-        video.addEventListener('ended', () => {
-            overlay.classList.remove('hidden');
-            playPauseBtn.textContent = '▶';
-        });
-
+        // Load stats function
         async function loadStats() {
             try {
+                console.log('Loading stats...');
                 const response = await fetch('/api/stats');
                 const data = await response.json();
+                console.log('Stats loaded:', data);
                 document.getElementById('stats').textContent = `${data.totalSignups} on waitlist`;
             } catch (error) {
+                console.error('Stats error:', error);
                 document.getElementById('stats').textContent = 'Join the waitlist';
             }
         }
 
+        // Show notification function
         function showNotification(message, type) {
+            console.log('Showing notification:', type, message);
             const notification = document.getElementById('notification');
             notification.textContent = message;
             notification.className = `notification ${type}`;
@@ -848,15 +603,22 @@
             }, 4000);
         }
 
+        // Handle form submit
         async function handleSubmit(e) {
             e.preventDefault();
+            console.log('Form submitted!');
             
-            if (isSubmitting) return;
+            if (isSubmitting) {
+                console.log('Already submitting, ignoring');
+                return;
+            }
             
             const form = e.target;
             const emailInput = form.querySelector('input[type="email"]');
             const button = form.querySelector('button');
             const email = emailInput.value.trim();
+
+            console.log('Email:', email);
 
             if (!email) {
                 showNotification('Please enter your email address', 'error');
@@ -868,6 +630,7 @@
             button.textContent = 'Joining...';
 
             try {
+                console.log('Sending request to /api/subscribe...');
                 const response = await fetch('/api/subscribe', {
                     method: 'POST',
                     headers: {
@@ -876,7 +639,9 @@
                     body: JSON.stringify({ email }),
                 });
 
+                console.log('Response status:', response.status);
                 const data = await response.json();
+                console.log('Response data:', data);
 
                 if (data.success) {
                     showNotification(data.message, 'success');
@@ -886,6 +651,7 @@
                     showNotification(data.message, 'error');
                 }
             } catch (error) {
+                console.error('Network error:', error);
                 showNotification('Network error. Please try again.', 'error');
             } finally {
                 isSubmitting = false;
@@ -894,11 +660,33 @@
             }
         }
 
-        document.getElementById('emailForm').addEventListener('submit', handleSubmit);
-        document.getElementById('emailFormBottom').addEventListener('submit', handleSubmit);
+        // Attach event listeners when DOM is ready
+        console.log('Attaching event listeners...');
+        const form1 = document.getElementById('emailForm');
+        const form2 = document.getElementById('emailFormBottom');
 
+        if (form1) {
+            form1.addEventListener('submit', handleSubmit);
+            console.log('Form 1 listener attached');
+        } else {
+            console.error('Form 1 not found!');
+        }
+
+        if (form2) {
+            form2.addEventListener('submit', handleSubmit);
+            console.log('Form 2 listener attached');
+        } else {
+            console.error('Form 2 not found!');
+        }
+
+        // Load stats on page load
+        console.log('Loading initial stats...');
         loadStats();
+        
+        // Refresh stats every 30 seconds
         setInterval(loadStats, 30000);
+        
+        console.log('Script initialization complete!');
     </script>
 </body>
 </html>

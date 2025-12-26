@@ -10,3 +10,4 @@ build/
 .vscode/
 .idea/
 *.mp4
+credentials.json
