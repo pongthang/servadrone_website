@@ -1,751 +1,838 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FalconLink - India's First High-Performance Digital Drone Video Link</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        :root {
-            --primary: #ff6b35;
-            --secondary: #f7931e;
-            --accent: #00ff88;
-            --dark: #0a0a0a;
-            --dark-light: #1a1a1a;
-            --text: #e8edf4;
-            --text-dim: #8b95a8;
-        }
+<title>Miliwatt Electronics - High Performance Digital Drone Video Systems</title>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
-            background: var(--dark);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        .grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: 0;
-            pointer-events: none;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .glow {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.15), transparent 70%);
-            pointer-events: none;
-            z-index: 1;
-        }
+:root{
+    --bg:#05070b;
+    --bg2:#0b1018;
+    --panel:rgba(255,255,255,0.05);
+    --panel-border:rgba(255,255,255,0.08);
+    --text:#f5f7fb;
+    --text-dim:#94a0b8;
+    --accent:#7ec8ff;
+    --accent2:#5fa8ff;
+    --glow:rgba(125,196,255,0.18);
+}
 
-        .glow-1 {
-            top: -200px;
-            right: -200px;
-            animation: float 20s ease-in-out infinite;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        .glow-2 {
-            bottom: -300px;
-            left: -300px;
-            animation: float 25s ease-in-out infinite reverse;
-        }
+body{
+    font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;
+    background:
+        radial-gradient(circle at top right, rgba(0,120,255,0.15), transparent 25%),
+        radial-gradient(circle at bottom left, rgba(0,90,255,0.12), transparent 35%),
+        linear-gradient(180deg,#04060a 0%,#080d14 100%);
+    color:var(--text);
+    overflow-x:hidden;
+    line-height:1.7;
+}
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(50px, 50px); }
-        }
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:60px 60px;
+    pointer-events:none;
+    z-index:0;
+}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
+.glow{
+    position:fixed;
+    width:700px;
+    height:700px;
+    border-radius:50%;
+    filter:blur(120px);
+    pointer-events:none;
+    z-index:0;
+}
 
-        nav {
-            padding: 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.glow1{
+    top:-300px;
+    right:-200px;
+    background:rgba(0,120,255,0.12);
+    animation:float 18s ease-in-out infinite;
+}
 
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
-        }
+.glow2{
+    bottom:-300px;
+    left:-200px;
+    background:rgba(90,170,255,0.1);
+    animation:float 22s ease-in-out infinite reverse;
+}
 
-        .stats {
-            padding: 8px 20px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 50px;
-            font-size: 14px;
-            color: var(--primary);
-            font-weight: 500;
-        }
+@keyframes float{
+    0%,100%{transform:translate(0,0);}
+    50%{transform:translate(60px,40px);}
+}
 
-        .hero {
-            text-align: center;
-            padding: 80px 0 60px;
-        }
+.container{
+    max-width:1280px;
+    margin:auto;
+    padding:0 24px;
+    position:relative;
+    z-index:2;
+}
 
-        .badge {
-            display: inline-block;
-            padding: 10px 24px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
-            animation: fadeInUp 0.8s ease;
-        }
+nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(18px);
+    background:rgba(4,8,14,0.65);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+}
 
-        h1 {
-            font-size: clamp(40px, 6vw, 72px);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #ffffff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.8s ease 0.2s backwards;
-        }
+.nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:24px 0;
+}
 
-        .tagline {
-            font-size: clamp(18px, 2.5vw, 24px);
-            color: var(--text-dim);
-            margin-bottom: 50px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeInUp 0.8s ease 0.4s backwards;
-        }
+.logo{
+    display:flex;
+    flex-direction:column;
+    line-height:1.1;
+}
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+.logo-main{
+    font-size:30px;
+    font-weight:800;
+    letter-spacing:-1px;
+    background:linear-gradient(135deg,#ffffff,#7ec8ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
 
-        .email-form {
-            display: flex;
-            gap: 12px;
-            max-width: 500px;
-            margin: 0 auto 80px;
-            animation: fadeInUp 0.8s ease 0.6s backwards;
-        }
+.logo-sub{
+    margin-top:6px;
+    color:var(--text-dim);
+    font-size:11px;
+    letter-spacing:0.3px;
+}
 
-        input[type="email"] {
-            flex: 1;
-            padding: 18px 24px;
-            background: var(--dark-light);
-            border: 2px solid rgba(0, 212, 255, 0.2);
-            border-radius: 12px;
-            color: var(--text);
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+.stats{
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(12px);
+    color:#dce9ff;
+    font-size:14px;
+}
 
-        input[type="email"]:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
-        }
+.hero{
+    min-height:92vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+}
 
-        .cta-btn {
-            padding: 18px 36px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
+.hero::before{
+    content:'';
+    position:absolute;
+    width:650px;
+    height:650px;
+    background:radial-gradient(circle, rgba(80,150,255,0.15), transparent 70%);
+    filter:blur(80px);
+    z-index:-1;
+}
 
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
-        }
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 20px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    color:#dce9ff;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:28px;
+    backdrop-filter:blur(12px);
+}
 
-        .cta-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
+.hero h1{
+    font-size:clamp(54px,8vw,100px);
+    line-height:0.95;
+    font-weight:900;
+    letter-spacing:-4px;
+    margin-bottom:30px;
+    background:linear-gradient(180deg,#ffffff 0%,#dbe8ff 40%,#7ec8ff 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
 
-        .video-section {
-            margin: 80px auto 120px;
-            animation: fadeInUp 0.8s ease 0.8s backwards;
-        }
+.tagline{
+    max-width:860px;
+    margin:auto;
+    font-size:22px;
+    color:var(--text-dim);
+    margin-bottom:50px;
+}
 
-        .video-container {
-            position: relative;
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
-            border: 2px solid rgba(0, 212, 255, 0.2);
-            background: var(--dark-light);
-        }
+.email-form{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    max-width:620px;
+    margin:0 auto;
+}
 
-        .video-container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 24px;
-            z-index: -1;
-            opacity: 0.5;
-            filter: blur(20px);
-        }
+input[type="email"]{
+    flex:1;
+    padding:20px 24px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.04);
+    backdrop-filter:blur(14px);
+    color:white;
+    font-size:16px;
+    outline:none;
+    transition:0.3s ease;
+}
 
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
+input[type="email"]:focus{
+    border-color:rgba(125,196,255,0.4);
+    box-shadow:0 0 0 5px rgba(125,196,255,0.08);
+}
 
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+.cta-btn{
+    padding:20px 34px;
+    border:none;
+    border-radius:18px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:700;
+    color:white;
+    background:
+        linear-gradient(135deg,#6db8ff,#4f91ff);
+    box-shadow:
+        0 12px 40px rgba(80,150,255,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+    transition:all .35s cubic-bezier(.2,.8,.2,1);
+}
 
-        .notification {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            padding: 16px 24px;
-            border-radius: 12px;
-            font-weight: 500;
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.4s ease;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
+.cta-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:
+        0 18px 60px rgba(80,150,255,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+}
 
-        .notification.show {
-            transform: translateX(0);
-        }
+.video-section{
+    margin:120px auto;
+}
 
-        .notification.success {
-            background: rgba(0, 255, 170, 0.15);
-            border: 1px solid var(--accent);
-            color: var(--accent);
-        }
+.video-container{
+    position:relative;
+    border-radius:34px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.08);
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(18px);
+    box-shadow:
+        0 30px 120px rgba(0,0,0,0.45),
+        0 0 80px rgba(80,150,255,0.12);
+}
 
-        .notification.error {
-            background: rgba(255, 68, 68, 0.15);
-            border: 1px solid #ff4444;
-            color: #ff6b6b;
-        }
+.video-container::before{
+    content:'';
+    position:absolute;
+    inset:-2px;
+    border-radius:34px;
+    background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent);
+    z-index:-1;
+}
 
-        section {
-            margin-bottom: 120px;
-        }
+.video-wrapper{
+    position:relative;
+    padding-bottom:56.25%;
+    height:0;
+}
 
-        .section-title {
-            font-size: clamp(28px, 4vw, 42px);
-            font-weight: 700;
-            margin-bottom: 24px;
-            line-height: 1.2;
-        }
+.video-wrapper iframe{
+    position:absolute;
+    width:100%;
+    height:100%;
+    inset:0;
+}
 
-        .section-text {
-            font-size: 18px;
-            color: var(--text-dim);
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
+section{
+    margin-bottom:140px;
+}
 
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            margin-top: 40px;
-        }
+.section-title{
+    font-size:clamp(34px,5vw,56px);
+    line-height:1.1;
+    font-weight:800;
+    letter-spacing:-2px;
+    margin-bottom:28px;
+}
 
-        .spec-card {
-            padding: 32px;
-            background: var(--dark-light);
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-        }
+.section-text{
+    max-width:920px;
+    font-size:18px;
+    color:var(--text-dim);
+    margin-bottom:20px;
+}
 
-        .spec-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.15);
-        }
+.specs-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:26px;
+    margin-top:50px;
+}
 
-        .spec-icon {
-            font-size: 36px;
-            margin-bottom: 16px;
-        }
+.spec-card{
+    position:relative;
+    overflow:hidden;
+    padding:34px;
+    border-radius:28px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    transition:all .4s ease;
+}
 
-        .spec-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--primary);
-        }
+.spec-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg,rgba(255,255,255,0.06),transparent);
+    opacity:0;
+    transition:0.4s ease;
+}
 
-        .spec-value {
-            font-size: 16px;
-            color: var(--text-dim);
-        }
+.spec-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(125,196,255,0.3);
+    box-shadow:0 30px 80px rgba(0,0,0,0.35);
+}
 
-        .features-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
+.spec-card:hover::before{
+    opacity:1;
+}
 
-        .feature-item {
-            display: flex;
-            gap: 16px;
-        }
+.spec-icon{
+    font-size:40px;
+    margin-bottom:18px;
+}
 
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            flex-shrink: 0;
-        }
+.spec-title{
+    font-size:22px;
+    margin-bottom:10px;
+    font-weight:700;
+}
 
-        .feature-content h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
+.spec-value{
+    color:var(--text-dim);
+}
 
-        .feature-content p {
-            color: var(--text-dim);
-            font-size: 15px;
-        }
+.features-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+    margin-top:50px;
+}
 
-        footer {
-            padding: 60px 0;
-            text-align: center;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-        }
+.feature-item{
+    padding:30px;
+    border-radius:28px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    transition:0.35s ease;
+}
 
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 16px;
-        }
+.feature-item:hover{
+    transform:translateY(-6px);
+    border-color:rgba(125,196,255,0.25);
+}
 
-        .footer-text {
-            color: var(--text-dim);
-            font-size: 14px;
-        }
+.feature-icon{
+    font-size:34px;
+    margin-bottom:20px;
+}
 
-        @media (max-width: 768px) {
-            .email-form {
-                flex-direction: column;
-            }
+.feature-content h3{
+    font-size:24px;
+    margin-bottom:10px;
+}
 
-            .cta-btn {
-                width: 100%;
-            }
+.feature-content p{
+    color:var(--text-dim);
+}
 
-            nav {
-                flex-direction: column;
-                gap: 20px;
-            }
+.cta-section{
+    padding:80px 40px;
+    border-radius:36px;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    text-align:center;
+}
 
-            .notification {
-                right: 20px;
-                left: 20px;
-                transform: translateY(-100px);
-            }
+footer{
+    padding:80px 0;
+    border-top:1px solid rgba(255,255,255,0.06);
+    text-align:center;
+}
 
-            .notification.show {
-                transform: translateY(0);
-            }
+.footer-logo{
+    font-size:28px;
+    font-weight:800;
+    margin-bottom:18px;
+    background:linear-gradient(135deg,#ffffff,#7ec8ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
 
-            section {
-                margin-bottom: 80px;
-            }
-        }
-    </style>
+.footer-text{
+    color:var(--text-dim);
+}
+
+.socials{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    margin-top:40px;
+    flex-wrap:wrap;
+}
+
+.socials a{
+    text-decoration:none;
+    color:var(--text);
+    padding:14px 22px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.35s ease;
+}
+
+.socials a:hover{
+    transform:translateY(-4px);
+    border-color:rgba(125,196,255,0.3);
+    box-shadow:0 14px 40px rgba(0,0,0,0.3);
+}
+
+.notification{
+    position:fixed;
+    top:30px;
+    right:30px;
+    z-index:1000;
+    padding:18px 24px;
+    border-radius:18px;
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.08);
+    transform:translateX(420px);
+    transition:0.4s ease;
+}
+
+.notification.show{
+    transform:translateX(0);
+}
+
+.notification.success{
+    background:rgba(0,255,170,0.08);
+    color:#78ffd6;
+}
+
+.notification.error{
+    background:rgba(255,70,70,0.08);
+    color:#ff9898;
+}
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:58px;
+        letter-spacing:-2px;
+    }
+
+    .tagline{
+        font-size:18px;
+    }
+
+    .email-form{
+        flex-direction:column;
+    }
+
+    .cta-btn{
+        width:100%;
+    }
+
+    .nav-inner{
+        flex-direction:column;
+        gap:18px;
+    }
+
+    section{
+        margin-bottom:90px;
+    }
+}
+</style>
 </head>
+
 <body>
-    <div class="grid-bg"></div>
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
 
-    <div class="notification" id="notification"></div>
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
 
-    <div class="container">
-        <nav>
-            <div class="logo" style="display: flex; flex-direction: column; line-height: 1.1;">
-                <span>ServaDrone</span>
-                <span style="font-size: 11px; font-weight: 400; letter-spacing: 0.3px; opacity: 0.7; -webkit-text-fill-color: var(--text-dim); background: none; color: var(--text-dim);">operates under Miliwatt Electronics Private Limited</span>
-            </div>
-            <div class="stats" id="stats">Loading...</div>
-        </nav>
+<div class="notification" id="notification"></div>
 
-        <div class="hero">
-            <div class="badge">🇮🇳 Made in India</div>
-            <h1>India's First High-Performance<br>Digital Drone Video Link</h1>
-            <p class="tagline">Ultra-low latency. Extended range. Professional-grade encrypted transmission. Built entirely in India.</p>
-            <!-- <p style="font-size: 13px; color: var(--text-dim); opacity: 0.7; margin-top: -36px; margin-bottom: 36px; letter-spacing: 0.3px;">
-                ServaDrone operates under <strong style="color: var(--text-dim);">Miliwatt Electronics Private Limited</strong>
-            </p> -->
-            
-            <form class="email-form" id="emailForm">
-                <input 
-                    type="email" 
-                    id="emailInput" 
-                    placeholder="Enter your email" 
-                    required
-                    autocomplete="email"
-                >
-                <button type="submit" class="cta-btn">Join Waitlist</button>
-            </form>
+<nav>
+    <div class="container nav-inner">
+        <div class="logo">
+            <span class="logo-main">Miliwatt Electronics</span>
+            <span class="logo-sub">ServaDrone operates under Miliwatt Electronics Private Limited</span>
         </div>
 
-        <div class="video-section">
-            <div class="video-container">
-                <div class="video-wrapper">
-                    <iframe 
-                        id="youtubeVideo"
-                        src="https://www.youtube.com/embed/nDn8jw9-HRA?rel=0&modestbranding=1" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-        </div>
-
-        <section>
-            <h2 class="section-title">Building India's drone electronics future</h2>
-            <p class="section-text">
-                India's drone industry has long relied on expensive imported video links from foreign manufacturers. Despite the rapid growth of our domestic drone sector, critical electronics remain sourced from abroad, creating cost barriers and limiting customization for Indian operators.
-            </p>
-            <p class="section-text">
-                ServaDrone is changing this. We're developing India's first world-class drone video link platform with complete in-house RF and encoder technology. Our mission is to establish India as a global leader in drone electronics, delivering professional-grade performance at prices that make sense for the Indian market.
-            </p>
-        </section>
-
-        <section>
-            <h2 class="section-title">Performance that competes globally</h2>
-            <div class="specs-grid">
-                <div class="spec-card">
-                    <div class="spec-icon">⚡</div>
-                    <div class="spec-title">Sub-60ms Latency</div>
-                    <div class="spec-value">Real-time responsiveness for precision FPV flight and critical operations</div>
-                </div>
-                <div class="spec-card">
-                    <div class="spec-icon">📡</div>
-                    <div class="spec-title">30km Range</div>
-                    <div class="spec-value">Extended operational capability for cinema, surveillance, and beyond</div>
-                </div>
-                <div class="spec-card">
-                    <div class="spec-icon">🎥</div>
-                    <div class="spec-title">Full HD Digital</div>
-                    <div class="spec-value">Crystal-clear 1080p video with robust encryption for secure transmission</div>
-                </div>
-                <div class="spec-card">
-                    <div class="spec-icon">🎯</div>
-                    <div class="spec-title">Multi-Purpose</div>
-                    <div class="spec-value">Designed for FPV racing, cinema production, and surveillance applications</div>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <h2 class="section-title">The ServaDrone advantage</h2>
-            <div class="features-list">
-                <div class="feature-item">
-                    <div class="feature-icon">🔧</div>
-                    <div class="feature-content">
-                        <h3>Full In-House Stack</h3>
-                        <p>Complete RF and encoder development in-house gives us unmatched control over performance optimization and rapid iteration cycles.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🚀</div>
-                    <div class="feature-content">
-                        <h3>Lower Latency Architecture</h3>
-                        <p>Purpose-built transmission protocols achieve sub-60ms glass-to-glass latency, critical for real-time pilot response.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">💰</div>
-                    <div class="feature-content">
-                        <h3>Made in India Pricing</h3>
-                        <p>Local design and manufacturing eliminate import costs, offering world-class performance at accessible price points.</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🎛️</div>
-                    <div class="feature-content">
-                        <h3>OEM Customization</h3>
-                        <p>Flexible platform enables custom frequency bands, protocols, and integrations for enterprise and government applications.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section style="text-align: center; padding: 60px 0; background: var(--dark-light); border-radius: 24px; margin-top: 80px;">
-            <h2 class="section-title">Be among the first to fly FalconLink</h2>
-            <p class="section-text" style="max-width: 600px; margin: 0 auto 40px;">
-                Join our waitlist to get early access, exclusive updates, and special launch pricing when FalconLink becomes available.
-            </p>
-            <form class="email-form" id="emailFormBottom" style="margin-bottom: 0;">
-                <input 
-                    type="email" 
-                    placeholder="Enter your email" 
-                    required
-                    autocomplete="email"
-                >
-                <button type="submit" class="cta-btn">Join Waitlist</button>
-            </form>
-        </section>
+        <div class="stats" id="stats">Loading...</div>
     </div>
+</nav>
 
-    <footer>
-        <div class="container">
-            <div class="footer-logo">FalconLink by ServaDrone</div>
-            <p class="footer-text">Building India's future in drone electronics, one innovation at a time.</p>
-            <p class="footer-text" style="margin-top: 10px; font-size: 13px; color: var(--text-dim); opacity: 0.75;">
-                ServaDrone operates under <strong style="color: var(--text-dim);">Miliwatt Electronics Private Limited</strong>
-            </p>
-            
-            <div style="margin-top: 36px; display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                <!-- Email -->
-                <a href="mailto:servadrone@gmail.com" title="servadrone@gmail.com" style="
-                    display: flex; align-items: center; gap: 10px;
-                    padding: 12px 22px;
-                    background: rgba(255,255,255,0.04);
-                    border: 1px solid rgba(255,255,255,0.1);
-                    border-radius: 50px;
-                    color: var(--text-dim);
-                    text-decoration: none;
-                    font-size: 14px; font-weight: 500;
-                    transition: all 0.3s ease;
-                    backdrop-filter: blur(6px);
-                " onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)';this.style.boxShadow='0 0 18px rgba(255,107,53,0.25)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='var(--text-dim)';this.style.boxShadow='none'">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="4" width="20" height="16" rx="3"/><polyline points="2,4 12,13 22,4"/>
-                    </svg>
-                    servadrone@gmail.com
-                </a>
+<div class="container">
 
-                <!-- YouTube -->
-                <a href="https://www.youtube.com/@servadrone" target="_blank" title="Visit us on YouTube" style="
-                    display: flex; align-items: center; gap: 10px;
-                    padding: 12px 22px;
-                    background: rgba(255,255,255,0.04);
-                    border: 1px solid rgba(255,255,255,0.1);
-                    border-radius: 50px;
-                    color: var(--text-dim);
-                    text-decoration: none;
-                    font-size: 14px; font-weight: 500;
-                    transition: all 0.3s ease;
-                    backdrop-filter: blur(6px);
-                " onmouseover="this.style.borderColor='#ff0000';this.style.color='#ff4444';this.style.boxShadow='0 0 18px rgba(255,0,0,0.25)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='var(--text-dim)';this.style.boxShadow='none'">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
-                    </svg>
-                    YouTube
-                </a>
+<section class="hero">
 
-                <!-- LinkedIn -->
-                <a href="https://www.linkedin.com/company/servadrone/" target="_blank" title="Follow us on LinkedIn" style="
-                    display: flex; align-items: center; gap: 10px;
-                    padding: 12px 22px;
-                    background: rgba(255,255,255,0.04);
-                    border: 1px solid rgba(255,255,255,0.1);
-                    border-radius: 50px;
-                    color: var(--text-dim);
-                    text-decoration: none;
-                    font-size: 14px; font-weight: 500;
-                    transition: all 0.3s ease;
-                    backdrop-filter: blur(6px);
-                " onmouseover="this.style.borderColor='#0a66c2';this.style.color='#0a66c2';this.style.boxShadow='0 0 18px rgba(10,102,194,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='var(--text-dim)';this.style.boxShadow='none'">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.23 0z"/>
-                    </svg>
-                    LinkedIn
-                </a>
-            </div>
+<div>
+    <div class="badge">🇮🇳 MADE IN INDIA</div>
+
+    <h1>
+        Mission-Critical<br>
+        Digital Video Systems
+    </h1>
+
+    <p class="tagline">
+        Ultra-low latency wireless video transmission engineered for FPV, robotics, surveillance, defense, and next-generation autonomous systems.
+    </p>
+
+    <form class="email-form" id="emailForm">
+        <input
+            type="email"
+            id="emailInput"
+            placeholder="Enter your email"
+            required
+            autocomplete="email"
+        >
+
+        <button type="submit" class="cta-btn">
+            Join Waitlist
+        </button>
+    </form>
+</div>
+
+</section>
+
+<div class="video-section">
+    <div class="video-container">
+        <div class="video-wrapper">
+            <iframe
+                id="youtubeVideo"
+                src="https://www.youtube.com/embed/nDn8jw9-HRA?rel=0&modestbranding=1"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
         </div>
-    </footer>
+    </div>
+</div>
 
-    <script>
-        console.log('Script starting...');
-        let isSubmitting = false;
+<section>
 
-        // Load stats function
-        async function loadStats() {
-            try {
-                console.log('Loading stats...');
-                const response = await fetch('/api/stats');
-                const data = await response.json();
-                console.log('Stats loaded:', data);
-                document.getElementById('stats').textContent = `${data.totalSignups} on waitlist`;
-            } catch (error) {
-                console.error('Stats error:', error);
-                document.getElementById('stats').textContent = 'Join the waitlist';
-            }
-        }
+<h2 class="section-title">
+Building India's Drone Electronics Future
+</h2>
 
-        // Show notification function
-        function showNotification(message, type) {
-            console.log('Showing notification:', type, message);
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
+<p class="section-text">
+India's drone industry has relied heavily on imported video transmission systems for years. Miliwatt Electronics is building indigenous high-performance digital video systems engineered specifically for the demanding requirements of modern drone and robotic platforms.
+</p>
 
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 4000);
-        }
+<p class="section-text">
+Our mission is to establish India as a leader in mission-critical drone electronics with ultra-low latency transmission systems, advanced RF engineering, and highly customizable OEM-ready platforms.
+</p>
 
-        // Handle form submit
-        async function handleSubmit(e) {
-            e.preventDefault();
-            console.log('Form submitted!');
-            
-            if (isSubmitting) {
-                console.log('Already submitting, ignoring');
-                return;
-            }
-            
-            const form = e.target;
-            const emailInput = form.querySelector('input[type="email"]');
-            const button = form.querySelector('button');
-            const email = emailInput.value.trim();
+</section>
 
-            console.log('Email:', email);
+<section>
 
-            if (!email) {
-                showNotification('Please enter your email address', 'error');
-                return;
-            }
+<h2 class="section-title">
+Performance That Competes Globally
+</h2>
 
-            isSubmitting = true;
-            button.disabled = true;
-            button.textContent = 'Joining...';
+<div class="specs-grid">
 
-            try {
-                console.log('Sending request to /api/subscribe...');
-                const response = await fetch('/api/subscribe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email }),
-                });
+<div class="spec-card">
+<div class="spec-icon">⚡</div>
+<div class="spec-title">Sub-60ms Latency</div>
+<div class="spec-value">
+Real-time responsiveness for precision flight and autonomous systems.
+</div>
+</div>
 
-                console.log('Response status:', response.status);
-                const data = await response.json();
-                console.log('Response data:', data);
+<div class="spec-card">
+<div class="spec-icon">📡</div>
+<div class="spec-title">30km Range</div>
+<div class="spec-value">
+Long-range transmission engineered for cinema, surveillance, and robotics.
+</div>
+</div>
 
-                if (data.success) {
-                    showNotification(data.message, 'success');
-                    emailInput.value = '';
-                    loadStats();
-                } else {
-                    showNotification(data.message, 'error');
-                }
-            } catch (error) {
-                console.error('Network error:', error);
-                showNotification('Network error. Please try again.', 'error');
-            } finally {
-                isSubmitting = false;
-                button.disabled = false;
-                button.textContent = 'Join Waitlist';
-            }
-        }
+<div class="spec-card">
+<div class="spec-icon">🎥</div>
+<div class="spec-title">1080p Digital</div>
+<div class="spec-value">
+High-definition encrypted digital video built for professional operations.
+</div>
+</div>
 
-        // Attach event listeners when DOM is ready
-        console.log('Attaching event listeners...');
-        const form1 = document.getElementById('emailForm');
-        const form2 = document.getElementById('emailFormBottom');
+<div class="spec-card">
+<div class="spec-icon">🛡️</div>
+<div class="spec-title">OEM Ready</div>
+<div class="spec-value">
+Flexible architecture for enterprise, defense, and robotics integration.
+</div>
+</div>
 
-        if (form1) {
-            form1.addEventListener('submit', handleSubmit);
-            console.log('Form 1 listener attached');
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">
+Engineered for Extreme Environments
+</h2>
+
+<div class="features-list">
+
+<div class="feature-item">
+<div class="feature-icon">🔧</div>
+<div class="feature-content">
+<h3>Full In-House Stack</h3>
+<p>
+Complete RF and encoder development enables deep optimization and rapid iteration cycles.
+</p>
+</div>
+</div>
+
+<div class="feature-item">
+<div class="feature-icon">🚀</div>
+<div class="feature-content">
+<h3>Low Latency Architecture</h3>
+<p>
+Purpose-built transmission protocols designed for mission-critical responsiveness.
+</p>
+</div>
+</div>
+
+<div class="feature-item">
+<div class="feature-icon">🎛️</div>
+<div class="feature-content">
+<h3>Custom Integrations</h3>
+<p>
+Flexible platform supporting custom frequencies, protocols, and OEM requirements.
+</p>
+</div>
+</div>
+
+<div class="feature-item">
+<div class="feature-icon">🇮🇳</div>
+<div class="feature-content">
+<h3>Designed in India</h3>
+<p>
+Building advanced drone electronics locally to reduce dependency on imported systems.
+</p>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section class="cta-section">
+
+<h2 class="section-title">
+Early Access Program
+</h2>
+
+<p class="section-text" style="margin:auto auto 40px;">
+Join the waitlist for launch updates, early access, and future developer programs.
+</p>
+
+<form class="email-form" id="emailFormBottom">
+
+<input
+    type="email"
+    placeholder="Enter your email"
+    required
+    autocomplete="email"
+>
+
+<button type="submit" class="cta-btn">
+    Join Waitlist
+</button>
+
+</form>
+
+</section>
+
+<footer>
+
+<div class="footer-logo">
+Miliwatt Electronics
+</div>
+
+<p class="footer-text">
+Building the foundational communication layer for drones and robotic systems.
+</p>
+
+<p class="footer-text" style="margin-top:10px;font-size:13px;">
+ServaDrone operates under Miliwatt Electronics Private Limited
+</p>
+
+<div class="socials">
+
+<a href="mailto:servadrone@gmail.com">
+Email
+</a>
+
+<a href="https://www.youtube.com/@servadrone" target="_blank">
+YouTube
+</a>
+
+<a href="https://www.linkedin.com/company/servadrone/" target="_blank">
+LinkedIn
+</a>
+
+</div>
+
+</footer>
+
+</div>
+
+<script>
+console.log('Script starting...');
+let isSubmitting = false;
+
+// Load stats function
+async function loadStats() {
+    try {
+        console.log('Loading stats...');
+        const response = await fetch('/api/stats');
+        const data = await response.json();
+        console.log('Stats loaded:', data);
+        document.getElementById('stats').textContent = `${data.totalSignups} on waitlist`;
+    } catch (error) {
+        console.error('Stats error:', error);
+        document.getElementById('stats').textContent = 'Join the waitlist';
+    }
+}
+
+// Show notification function
+function showNotification(message, type) {
+    console.log('Showing notification:', type, message);
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.className = `notification ${type}`;
+    notification.classList.add('show');
+
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 4000);
+}
+
+// Handle form submit
+async function handleSubmit(e) {
+    e.preventDefault();
+
+    if (isSubmitting) {
+        return;
+    }
+
+    const form = e.target;
+    const emailInput = form.querySelector('input[type="email"]');
+    const button = form.querySelector('button');
+    const email = emailInput.value.trim();
+
+    if (!email) {
+        showNotification('Please enter your email address', 'error');
+        return;
+    }
+
+    isSubmitting = true;
+    button.disabled = true;
+    button.textContent = 'Joining...';
+
+    try {
+        const response = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification(data.message, 'success');
+            emailInput.value = '';
+            loadStats();
         } else {
-            console.error('Form 1 not found!');
+            showNotification(data.message, 'error');
         }
+    } catch (error) {
+        console.error('Network error:', error);
+        showNotification('Network error. Please try again.', 'error');
+    } finally {
+        isSubmitting = false;
+        button.disabled = false;
+        button.textContent = 'Join Waitlist';
+    }
+}
 
-        if (form2) {
-            form2.addEventListener('submit', handleSubmit);
-            console.log('Form 2 listener attached');
-        } else {
-            console.error('Form 2 not found!');
-        }
+const form1 = document.getElementById('emailForm');
+const form2 = document.getElementById('emailFormBottom');
 
-        // Load stats on page load
-        console.log('Loading initial stats...');
-        loadStats();
-        
-        // Refresh stats every 30 seconds
-        setInterval(loadStats, 30000);
-        
-        console.log('Script initialization complete!');
-    </script>
+if (form1) {
+    form1.addEventListener('submit', handleSubmit);
+}
+
+if (form2) {
+    form2.addEventListener('submit', handleSubmit);
+}
+
+loadStats();
+setInterval(loadStats, 30000);
+
+console.log('Script initialization complete!');
+</script>
+
 </body>
 </html>
