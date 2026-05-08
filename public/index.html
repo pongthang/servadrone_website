@@ -109,35 +109,152 @@ body.light-theme nav{
 
 .nav-stat{
   font-size:12px;
-  color:var(--text-dim);
-  font-weight:400;
+  color:var(--text-mid);
+  font-weight:500;
+  letter-spacing:0.03em;
+  white-space:nowrap;
 }
 
-.theme-toggle{
-  width:56px;
-  height:32px;
+.live-waitlist{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 14px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.03);
   border-radius:999px;
-  border:1px solid var(--border-strong);
-  background:var(--bg2);
-  position:relative;
-  cursor:pointer;
-  transition:all 0.3s ease;
+  backdrop-filter:blur(12px);
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.25s ease;
 }
 
-.theme-toggle::after{
-  content:'';
-  width:24px;
-  height:24px;
+.live-waitlist:hover{
+  border-color:var(--border-strong);
+  transform:translateY(-1px);
+}
+
+body.light-theme .live-waitlist{
+  background:rgba(0,0,0,0.025);
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
   border-radius:50%;
-  background:var(--accent);
-  position:absolute;
-  top:3px;
-  left:4px;
-  transition:all 0.3s ease;
+  background:#22c55e;
+  position:relative;
+  flex-shrink:0;
 }
 
-body.light-theme .theme-toggle::after{
-  transform:translateX(24px);
+.live-dot::after{
+  content:'';
+  position:absolute;
+  inset:-4px;
+  border-radius:50%;
+  background:#22c55e;
+  opacity:0.35;
+  animation:livePulse 1.8s infinite;
+}
+
+@keyframes livePulse{
+  0%{
+    transform:scale(0.8);
+    opacity:0.45;
+  }
+
+  70%{
+    transform:scale(2.4);
+    opacity:0;
+  }
+
+  100%{
+    opacity:0;
+  }
+}
+
+.live-text{
+  font-size:12px;
+  font-weight:500;
+  color:var(--text);
+  letter-spacing:0.02em;
+  white-space:nowrap;
+}
+
+.live-text strong{
+  font-weight:700;
+  color:var(--text);
+}
+
+.theme-toggle {
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg2);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.35s ease, border-color 0.35s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--text-dim);
+}
+
+.theme-toggle .toggle-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7px;
+  pointer-events: none;
+}
+
+.theme-toggle .toggle-track svg {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease;
+}
+
+.theme-toggle .icon-sun {
+  color: var(--text-dim);
+  opacity: 1;
+}
+
+.theme-toggle .icon-moon {
+  color: var(--text-dim);
+  opacity: 0.4;
+}
+
+body.light-theme .theme-toggle .icon-sun {
+  opacity: 0.4;
+}
+
+body.light-theme .theme-toggle .icon-moon {
+  opacity: 1;
+}
+
+.theme-toggle .toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s ease;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.35);
+}
+
+body.light-theme .theme-toggle .toggle-thumb {
+  transform: translateX(24px);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.18);
 }
 
 .hero{
@@ -548,9 +665,33 @@ footer{
       </div>
     </div>
 
+    <!-- FIX 1: added id="stats" span before the toggle -->
     <div class="nav-right">
-      <div class="nav-stat" id="stats">—</div>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+      <div class="live-waitlist" id="stats">
+        <span class="live-dot"></span>
+        <span class="live-text">Loading waitlist...</span>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <div class="toggle-track">
+          <!-- Sun -->
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <!-- Moon -->
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+          </svg>
+        </div>
+        <div class="toggle-thumb"></div>
+      </button>
     </div>
 
   </div>
@@ -570,8 +711,8 @@ footer{
   </h1>
 
   <p class="tagline">
-    Ultra-low latency transmission for FPV drones, robotics, surveillance,
-    defense, and autonomous systems. Built in India. Ready for the world.
+  A modular, production-grade communication and control layer for drones
+  and robotic systems — built in India, engineered for the world.
   </p>
 
   <form class="email-form" id="emailForm">
@@ -607,11 +748,6 @@ footer{
   </div>
 
   <div class="data-item">
-    <div class="data-label">Platform</div>
-    <div class="data-val">OEM</div>
-  </div>
-
-  <div class="data-item">
     <div class="data-label">Origin</div>
     <div class="data-val">India</div>
   </div>
@@ -638,28 +774,37 @@ footer{
 
   <div class="section-grid">
 
-    <div class="section-aside">01 — About</div>
+    <div class="section-aside">01 — The Problem</div>
 
-    <div>
+<div>
+  <h2 class="section-title">
+    Every team is either<br>
+    <strong>locked in or rebuilding</strong>
+  </h2>
 
-      <h2 class="section-title">
-        Building India's<br>
-        <strong>drone electronics future</strong>
-      </h2>
+  <p class="section-text">
+    Across inspection, defense, agriculture, logistics, and FPV —
+    hundreds of drone and robotics companies are emerging with different
+    architectures and mission requirements. Yet they all depend on the
+    same critical foundation: low-latency, reliable real-time communication
+    for video, control, and data.
+  </p>
 
-      <p class="section-text">
-        India's drone industry has long relied on imported video transmission systems.
-        Miliwatt Electronics is building indigenous high-performance digital video
-        systems engineered for the demanding requirements of modern drone and robotic platforms.
-      </p>
+  <p class="section-text">
+    That foundation is broken. Closed ecosystems like DJI and Walksnail
+    deliver strong performance but enforce rigid architectures and platform
+    lock-in. DIY solutions demand significant engineering effort to reach
+    reliability — reinvented systems, delayed timelines, inconsistent results.
+  </p>
 
-      <p class="section-text">
-        Our mission is to establish India as a leader in mission-critical drone electronics
-        — with ultra-low latency transmission, advanced RF engineering,
-        and highly customizable OEM-ready platforms.
-      </p>
+  <p class="section-text">
+    The result: enterprise OEMs cannot fully control their stack. Startups
+    waste months rebuilding infrastructure instead of building product.
+    FPV operators face high costs and poor modularity — a single crash
+    often means replacing an entire system rather than a component.
+  </p>
 
-    </div>
+</div>
 
   </div>
 
@@ -724,51 +869,52 @@ footer{
 
   <div class="section-grid">
 
-    <div class="section-aside">03 — Architecture</div>
+  <div class="section-aside">03 — What This Unlocks</div>
 
-    <div>
+<div>
 
-      <h2 class="section-title">
-        Engineered for<br>
-        <strong>extreme environments</strong>
-      </h2>
+  <h2 class="section-title">
+    The foundational layer<br>
+    <strong>for real-time robotics</strong>
+  </h2>
 
-      <div class="features-table">
+  <div class="features-table">
 
-        <div class="feature-row">
-          <div class="feature-name">Full in-house stack</div>
-          <div class="feature-desc">
-            Complete RF and encoder development enables deep optimization
-            and rapid iteration cycles.
-          </div>
-        </div>
-
-        <div class="feature-row">
-          <div class="feature-name">Low latency architecture</div>
-          <div class="feature-desc">
-            Purpose-built transmission protocols designed for mission-critical responsiveness.
-          </div>
-        </div>
-
-        <div class="feature-row">
-          <div class="feature-name">Custom integrations</div>
-          <div class="feature-desc">
-            Flexible platform supporting custom frequencies, protocols,
-            and OEM requirements.
-          </div>
-        </div>
-
-        <div class="feature-row">
-          <div class="feature-name">Designed in India</div>
-          <div class="feature-desc">
-            Building advanced drone electronics locally to reduce dependency
-            on imported systems.
-          </div>
-        </div>
-
+    <div class="feature-row">
+      <div class="feature-name">Ready-made base layer</div>
+      <div class="feature-desc">
+        Drone and robotics companies adopt a production-grade communication
+        stack without rebuilding core infrastructure from scratch.
       </div>
-
     </div>
+
+    <div class="feature-row">
+      <div class="feature-name">Engineering focus shifts</div>
+      <div class="feature-desc">
+        Teams move from plumbing to higher-value work — autonomy, AI,
+        and application-specific capabilities.
+      </div>
+    </div>
+
+    <div class="feature-row">
+      <div class="feature-name">Full OEM control</div>
+      <div class="feature-desc">
+        Enterprise integrators gain deep customization across frequencies,
+        protocols, and architectures — without third-party lock-in.
+      </div>
+    </div>
+
+    <div class="feature-row">
+      <div class="feature-name">Modular by design</div>
+      <div class="feature-desc">
+        Field operators replace components, not systems — reducing
+        failure costs by 40–60% compared to closed architectures.
+      </div>
+    </div>
+
+  </div>
+
+</div>
 
   </div>
 
@@ -814,7 +960,7 @@ footer{
     <div class="footer-right">
 
       <p>
-        Building the foundational communication layer<br>
+        Building the foundational communication and control layer<br>
         for drones and robotic systems.
       </p>
 
@@ -838,8 +984,9 @@ let isSubmitting = false;
 const body = document.body;
 const themeToggle = document.getElementById('themeToggle');
 
+// FIX 2: applyTheme only toggles the class — no innerHTML overwrite
 function applyTheme(theme) {
-  if(theme === 'light') {
+  if (theme === 'light') {
     body.classList.add('light-theme');
   } else {
     body.classList.remove('light-theme');
@@ -848,12 +995,7 @@ function applyTheme(theme) {
 }
 
 const savedTheme = localStorage.getItem('theme');
-
-if(savedTheme) {
-  applyTheme(savedTheme);
-} else {
-  applyTheme('dark');
-}
+applyTheme(savedTheme || 'dark');
 
 themeToggle.addEventListener('click', () => {
   const isLight = body.classList.contains('light-theme');
@@ -862,23 +1004,34 @@ themeToggle.addEventListener('click', () => {
 
 async function loadStats() {
   try {
+
     const response = await fetch('/api/stats');
     const data = await response.json();
-    document.getElementById('stats').textContent =
-      `${data.totalSignups} on waitlist`;
+
+    document.getElementById('stats').innerHTML = `
+      <span class="live-dot"></span>
+      <span class="live-text">
+        <strong>${data.totalSignups}</strong> on waitlist
+      </span>
+    `;
+
   } catch {
-    document.getElementById('stats').textContent =
-      'Join the waitlist';
+
+    document.getElementById('stats').innerHTML = `
+      <span class="live-dot"></span>
+      <span class="live-text">
+        Waitlist open
+      </span>
+    `;
+
   }
 }
 
 function showNotification(message, type) {
   const n = document.getElementById('notification');
-
   n.textContent = message;
   n.className = `notification ${type}`;
   n.classList.add('show');
-
   setTimeout(() => {
     n.classList.remove('show');
   }, 4000);
@@ -897,71 +1050,45 @@ async function handleSubmit(e) {
   const email = emailInput.value.trim();
 
   if(!email){
-    showNotification(
-      'Please enter your email address',
-      'error'
-    );
+    showNotification('Please enter your email address', 'error');
     return;
   }
 
   isSubmitting = true;
-
   button.disabled = true;
   button.textContent = 'Sending...';
 
   try {
 
     const response = await fetch('/api/subscribe', {
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({ email }),
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
     });
 
     const data = await response.json();
 
     if(data.success){
-
       showNotification(data.message, 'success');
-
       emailInput.value = '';
-
       loadStats();
-
     } else {
-
       showNotification(data.message, 'error');
-
     }
 
   } catch {
-
-    showNotification(
-      'Network error. Please try again.',
-      'error'
-    );
-
+    showNotification('Network error. Please try again.', 'error');
   } finally {
-
     isSubmitting = false;
-
     button.disabled = false;
     button.textContent = 'Join Waitlist';
-
   }
 }
 
-document
-  .getElementById('emailForm')
-  .addEventListener('submit', handleSubmit);
-
-document
-  .getElementById('emailFormBottom')
-  .addEventListener('submit', handleSubmit);
+document.getElementById('emailForm').addEventListener('submit', handleSubmit);
+document.getElementById('emailFormBottom').addEventListener('submit', handleSubmit);
 
 loadStats();
-
 setInterval(loadStats, 30000);
 </script>
 
