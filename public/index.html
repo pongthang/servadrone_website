@@ -3,835 +3,966 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<title>Miliwatt Electronics - High Performance Digital Drone Video Systems</title>
+<title>Miliwatt Electronics — High Performance Digital Drone Video Systems</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 :root{
-    --bg:#05070b;
-    --bg2:#0b1018;
-    --panel:rgba(255,255,255,0.05);
-    --panel-border:rgba(255,255,255,0.08);
-    --text:#f5f7fb;
-    --text-dim:#94a0b8;
-    --accent:#7ec8ff;
-    --accent2:#5fa8ff;
-    --glow:rgba(125,196,255,0.18);
+  --bg:#0b0b0c;
+  --bg2:#131314;
+  --card:#101011;
+  --text:#f5f5f5;
+  --text-mid:#b3b3b3;
+  --text-dim:#737373;
+  --border:#232325;
+  --border-strong:#3b3b3d;
+  --accent:#ffffff;
+  --shadow:0 10px 40px rgba(0,0,0,0.35);
+}
+
+body.light-theme{
+  --bg:#ffffff;
+  --bg2:#f6f6f7;
+  --card:#ffffff;
+  --text:#0a0a0a;
+  --text-mid:#444444;
+  --text-dim:#777777;
+  --border:#e6e6e8;
+  --border-strong:#cfcfd2;
+  --accent:#0a0a0a;
+  --shadow:0 10px 30px rgba(0,0,0,0.06);
 }
 
 html{
-    scroll-behavior:smooth;
+  scroll-behavior:smooth;
 }
 
 body{
-    font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;
-    background:
-        radial-gradient(circle at top right, rgba(0,120,255,0.15), transparent 25%),
-        radial-gradient(circle at bottom left, rgba(0,90,255,0.12), transparent 35%),
-        linear-gradient(180deg,#04060a 0%,#080d14 100%);
-    color:var(--text);
-    overflow-x:hidden;
-    line-height:1.7;
-}
-
-body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size:60px 60px;
-    pointer-events:none;
-    z-index:0;
-}
-
-.glow{
-    position:fixed;
-    width:700px;
-    height:700px;
-    border-radius:50%;
-    filter:blur(120px);
-    pointer-events:none;
-    z-index:0;
-}
-
-.glow1{
-    top:-300px;
-    right:-200px;
-    background:rgba(0,120,255,0.12);
-    animation:float 18s ease-in-out infinite;
-}
-
-.glow2{
-    bottom:-300px;
-    left:-200px;
-    background:rgba(90,170,255,0.1);
-    animation:float 22s ease-in-out infinite reverse;
-}
-
-@keyframes float{
-    0%,100%{transform:translate(0,0);}
-    50%{transform:translate(60px,40px);}
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
+  line-height:1.6;
+  font-size:15px;
+  font-weight:400;
+  transition:
+    background 0.35s ease,
+    color 0.35s ease;
 }
 
 .container{
-    max-width:1280px;
-    margin:auto;
-    padding:0 24px;
-    position:relative;
-    z-index:2;
+  max-width:1100px;
+  margin:auto;
+  padding:0 40px;
 }
 
 nav{
-    position:sticky;
-    top:0;
-    z-index:100;
-    backdrop-filter:blur(18px);
-    background:rgba(4,8,14,0.65);
-    border-bottom:1px solid rgba(255,255,255,0.05);
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(10,10,10,0.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+  transition:all 0.35s ease;
+}
+
+body.light-theme nav{
+  background:rgba(255,255,255,0.85);
 }
 
 .nav-inner{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:24px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0;
+  gap:20px;
 }
 
-.logo{
-    display:flex;
-    flex-direction:column;
-    line-height:1.1;
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
 }
 
 .logo-main{
-    font-size:30px;
-    font-weight:800;
-    letter-spacing:-1px;
-    background:linear-gradient(135deg,#ffffff,#7ec8ff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:0.02em;
+  color:var(--text);
 }
 
 .logo-sub{
-    margin-top:6px;
-    color:var(--text-dim);
-    font-size:11px;
-    letter-spacing:0.3px;
+  font-size:11px;
+  color:var(--text-dim);
+  margin-top:2px;
+  font-weight:400;
 }
 
-.stats{
-    padding:10px 18px;
-    border-radius:999px;
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    backdrop-filter:blur(12px);
-    color:#dce9ff;
-    font-size:14px;
+.nav-stat{
+  font-size:12px;
+  color:var(--text-dim);
+  font-weight:400;
+}
+
+.theme-toggle{
+  width:56px;
+  height:32px;
+  border-radius:999px;
+  border:1px solid var(--border-strong);
+  background:var(--bg2);
+  position:relative;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+
+.theme-toggle::after{
+  content:'';
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:var(--accent);
+  position:absolute;
+  top:3px;
+  left:4px;
+  transition:all 0.3s ease;
+}
+
+body.light-theme .theme-toggle::after{
+  transform:translateX(24px);
 }
 
 .hero{
-    min-height:92vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    position:relative;
+  padding:110px 0 90px;
+  border-bottom:1px solid var(--border);
 }
 
-.hero::before{
-    content:'';
-    position:absolute;
-    width:650px;
-    height:650px;
-    background:radial-gradient(circle, rgba(80,150,255,0.15), transparent 70%);
-    filter:blur(80px);
-    z-index:-1;
-}
-
-.badge{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 20px;
-    border-radius:999px;
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    color:#dce9ff;
-    font-size:13px;
-    font-weight:600;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    margin-bottom:28px;
-    backdrop-filter:blur(12px);
+.hero-label{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  margin-bottom:32px;
 }
 
 .hero h1{
-    font-size:clamp(54px,8vw,100px);
-    line-height:0.95;
-    font-weight:900;
-    letter-spacing:-4px;
-    margin-bottom:30px;
-    background:linear-gradient(180deg,#ffffff 0%,#dbe8ff 40%,#7ec8ff 100%);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+  font-size:clamp(34px,5vw,60px);
+  font-weight:300;
+  line-height:1.08;
+  letter-spacing:-0.04em;
+  color:var(--text);
+  margin-bottom:26px;
+  max-width:760px;
+}
+
+.hero h1 strong{
+  font-weight:600;
 }
 
 .tagline{
-    max-width:860px;
-    margin:auto;
-    font-size:22px;
-    color:var(--text-dim);
-    margin-bottom:50px;
+  max-width:600px;
+  font-size:16px;
+  color:var(--text-mid);
+  line-height:1.9;
+  margin-bottom:52px;
 }
 
 .email-form{
-    display:flex;
-    gap:14px;
-    justify-content:center;
-    max-width:620px;
-    margin:0 auto;
+  display:flex;
+  max-width:480px;
 }
 
 input[type="email"]{
-    flex:1;
-    padding:20px 24px;
-    border-radius:18px;
-    border:1px solid rgba(255,255,255,0.08);
-    background:rgba(255,255,255,0.04);
-    backdrop-filter:blur(14px);
-    color:white;
-    font-size:16px;
-    outline:none;
-    transition:0.3s ease;
+  flex:1;
+  padding:14px 18px;
+  border:1px solid var(--border-strong);
+  border-right:none;
+  background:var(--card);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  outline:none;
+  transition:all 0.25s ease;
+}
+
+input[type="email"]::placeholder{
+  color:var(--text-dim);
 }
 
 input[type="email"]:focus{
-    border-color:rgba(125,196,255,0.4);
-    box-shadow:0 0 0 5px rgba(125,196,255,0.08);
+  border-color:var(--accent);
 }
 
 .cta-btn{
-    padding:20px 34px;
-    border:none;
-    border-radius:18px;
-    cursor:pointer;
-    font-size:16px;
-    font-weight:700;
-    color:white;
-    background:
-        linear-gradient(135deg,#6db8ff,#4f91ff);
-    box-shadow:
-        0 12px 40px rgba(80,150,255,0.35),
-        inset 0 1px 0 rgba(255,255,255,0.25);
-    transition:all .35s cubic-bezier(.2,.8,.2,1);
+  padding:14px 30px;
+  border:1px solid var(--border-strong);
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  color:var(--bg);
+  background:var(--accent);
+  transition:all 0.25s ease;
+  white-space:nowrap;
 }
 
 .cta-btn:hover{
-    transform:translateY(-4px);
-    box-shadow:
-        0 18px 60px rgba(80,150,255,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.25);
+  transform:translateY(-1px);
+  opacity:0.92;
+}
+
+.data-bar{
+  display:flex;
+  align-items:center;
+  padding:38px 0;
+  border-bottom:1px solid var(--border);
+  overflow-x:auto;
+}
+
+.data-item{
+  flex:1;
+  min-width:120px;
+  padding:0 32px;
+  border-right:1px solid var(--border);
+}
+
+.data-item:first-child{
+  padding-left:0;
+}
+
+.data-item:last-child{
+  border-right:none;
+}
+
+.data-label{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  margin-bottom:6px;
+}
+
+.data-val{
+  font-size:22px;
+  font-weight:300;
+  letter-spacing:-0.03em;
+  color:var(--text);
 }
 
 .video-section{
-    margin:120px auto;
+  padding:80px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.section-label{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  margin-bottom:28px;
 }
 
 .video-container{
-    position:relative;
-    border-radius:34px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,0.08);
-    background:rgba(255,255,255,0.03);
-    backdrop-filter:blur(18px);
-    box-shadow:
-        0 30px 120px rgba(0,0,0,0.45),
-        0 0 80px rgba(80,150,255,0.12);
-}
-
-.video-container::before{
-    content:'';
-    position:absolute;
-    inset:-2px;
-    border-radius:34px;
-    background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent);
-    z-index:-1;
+  border:1px solid var(--border);
+  overflow:hidden;
+  border-radius:20px;
+  background:var(--card);
+  box-shadow:var(--shadow);
 }
 
 .video-wrapper{
-    position:relative;
-    padding-bottom:56.25%;
-    height:0;
+  position:relative;
+  padding-bottom:56.25%;
+  height:0;
 }
 
 .video-wrapper iframe{
-    position:absolute;
-    width:100%;
-    height:100%;
-    inset:0;
+  position:absolute;
+  width:100%;
+  height:100%;
+  inset:0;
 }
 
-section{
-    margin-bottom:140px;
+.content-section{
+  padding:84px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.section-grid{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:54px;
+  align-items:start;
+}
+
+.section-aside{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  padding-top:4px;
 }
 
 .section-title{
-    font-size:clamp(34px,5vw,56px);
-    line-height:1.1;
-    font-weight:800;
-    letter-spacing:-2px;
-    margin-bottom:28px;
+  font-size:clamp(24px,3vw,36px);
+  font-weight:300;
+  line-height:1.18;
+  letter-spacing:-0.03em;
+  color:var(--text);
+  margin-bottom:22px;
+}
+
+.section-title strong{
+  font-weight:600;
 }
 
 .section-text{
-    max-width:920px;
-    font-size:18px;
-    color:var(--text-dim);
-    margin-bottom:20px;
+  font-size:15px;
+  color:var(--text-mid);
+  line-height:1.9;
+  max-width:680px;
+  margin-bottom:18px;
 }
 
-.specs-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:26px;
-    margin-top:50px;
+.specs-table,
+.features-table{
+  margin-top:42px;
+  border-top:1px solid var(--border);
 }
 
-.spec-card{
-    position:relative;
-    overflow:hidden;
-    padding:34px;
-    border-radius:28px;
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    backdrop-filter:blur(18px);
-    transition:all .4s ease;
+.spec-row{
+  display:grid;
+  grid-template-columns:160px 100px 1fr;
+  gap:22px;
+  padding:24px 0;
+  border-bottom:1px solid var(--border);
+  align-items:baseline;
 }
 
-.spec-card::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:linear-gradient(135deg,rgba(255,255,255,0.06),transparent);
-    opacity:0;
-    transition:0.4s ease;
-}
-
-.spec-card:hover{
-    transform:translateY(-8px);
-    border-color:rgba(125,196,255,0.3);
-    box-shadow:0 30px 80px rgba(0,0,0,0.35);
-}
-
-.spec-card:hover::before{
-    opacity:1;
-}
-
-.spec-icon{
-    font-size:40px;
-    margin-bottom:18px;
-}
-
-.spec-title{
-    font-size:22px;
-    margin-bottom:10px;
-    font-weight:700;
+.spec-name{
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--text-dim);
 }
 
 .spec-value{
-    color:var(--text-dim);
+  font-size:20px;
+  font-weight:300;
+  letter-spacing:-0.02em;
+  color:var(--text);
 }
 
-.features-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:30px;
-    margin-top:50px;
+.spec-desc{
+  font-size:14px;
+  color:var(--text-dim);
+  line-height:1.7;
 }
 
-.feature-item{
-    padding:30px;
-    border-radius:28px;
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    backdrop-filter:blur(18px);
-    transition:0.35s ease;
+.feature-row{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:22px;
+  padding:28px 0;
+  border-bottom:1px solid var(--border);
+  align-items:start;
 }
 
-.feature-item:hover{
-    transform:translateY(-6px);
-    border-color:rgba(125,196,255,0.25);
+.feature-name{
+  font-size:14px;
+  font-weight:500;
+  color:var(--text);
 }
 
-.feature-icon{
-    font-size:34px;
-    margin-bottom:20px;
-}
-
-.feature-content h3{
-    font-size:24px;
-    margin-bottom:10px;
-}
-
-.feature-content p{
-    color:var(--text-dim);
+.feature-desc{
+  font-size:14px;
+  color:var(--text-mid);
+  line-height:1.8;
 }
 
 .cta-section{
-    padding:80px 40px;
-    border-radius:36px;
-    background:
-        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    border:1px solid rgba(255,255,255,0.08);
-    backdrop-filter:blur(20px);
-    text-align:center;
-}
-
-footer{
-    padding:80px 0;
-    border-top:1px solid rgba(255,255,255,0.06);
-    text-align:center;
-}
-
-.footer-logo{
-    font-size:28px;
-    font-weight:800;
-    margin-bottom:18px;
-    background:linear-gradient(135deg,#ffffff,#7ec8ff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.footer-text{
-    color:var(--text-dim);
-}
-
-.socials{
-    display:flex;
-    justify-content:center;
-    gap:16px;
-    margin-top:40px;
-    flex-wrap:wrap;
-}
-
-.socials a{
-    text-decoration:none;
-    color:var(--text);
-    padding:14px 22px;
-    border-radius:999px;
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.08);
-    transition:0.35s ease;
-}
-
-.socials a:hover{
-    transform:translateY(-4px);
-    border-color:rgba(125,196,255,0.3);
-    box-shadow:0 14px 40px rgba(0,0,0,0.3);
+  padding:90px 0;
+  border-bottom:1px solid var(--border);
 }
 
 .notification{
-    position:fixed;
-    top:30px;
-    right:30px;
-    z-index:1000;
-    padding:18px 24px;
-    border-radius:18px;
-    backdrop-filter:blur(20px);
-    border:1px solid rgba(255,255,255,0.08);
-    transform:translateX(420px);
-    transition:0.4s ease;
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:2000;
+  padding:14px 20px;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  border:1px solid var(--border-strong);
+  background:var(--card);
+  color:var(--text);
+  backdrop-filter:blur(10px);
+  transform:translateX(360px);
+  transition:transform 0.35s ease;
+  box-shadow:var(--shadow);
 }
 
 .notification.show{
-    transform:translateX(0);
+  transform:translateX(0);
 }
 
 .notification.success{
-    background:rgba(0,255,170,0.08);
-    color:#78ffd6;
+  border-color:#3d7d4b;
 }
 
 .notification.error{
-    background:rgba(255,70,70,0.08);
-    color:#ff9898;
+  border-color:#a33a3a;
 }
 
-@media(max-width:768px){
+footer{
+  padding:70px 0;
+}
 
-    .hero h1{
-        font-size:58px;
-        letter-spacing:-2px;
-    }
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:40px;
+}
 
-    .tagline{
-        font-size:18px;
-    }
+.footer-right p{
+  font-size:13px;
+  color:var(--text-dim);
+  margin-bottom:18px;
+  line-height:1.7;
+}
 
-    .email-form{
-        flex-direction:column;
-    }
+.socials{
+  display:flex;
+}
 
-    .cta-btn{
-        width:100%;
-    }
+.socials a{
+  text-decoration:none;
+  color:var(--text-dim);
+  font-size:13px;
+  padding:11px 20px;
+  border:1px solid var(--border);
+  border-right:none;
+  transition:all 0.25s ease;
+}
 
-    .nav-inner{
-        flex-direction:column;
-        gap:18px;
-    }
+.socials a:last-child{
+  border-right:1px solid var(--border);
+}
 
-    section{
-        margin-bottom:90px;
-    }
+.socials a:hover{
+  color:var(--text);
+  border-color:var(--border-strong);
+  background:var(--bg2);
+}
+
+@media(max-width:720px){
+
+  .container{
+    padding:0 24px;
+  }
+
+  .nav-inner{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .nav-right{
+    width:100%;
+    justify-content:space-between;
+  }
+
+  .hero{
+    padding:72px 0 58px;
+  }
+
+  .section-grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .spec-row{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .spec-desc{
+    display:none;
+  }
+
+  .feature-row{
+    grid-template-columns:1fr;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    gap:32px;
+  }
+
+  .data-item{
+    min-width:90px;
+    padding:0 16px;
+  }
+
+  .email-form{
+    flex-direction:column;
+  }
+
+  input[type="email"]{
+    border-right:1px solid var(--border-strong);
+    border-bottom:none;
+  }
+
+  .cta-btn{
+    width:100%;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="glow glow1"></div>
-<div class="glow glow2"></div>
-
 <div class="notification" id="notification"></div>
 
 <nav>
-    <div class="container nav-inner">
-        <div class="logo">
-            <span class="logo-main">Miliwatt Electronics</span>
-            <span class="logo-sub">ServaDrone operates under Miliwatt Electronics Private Limited</span>
-        </div>
+  <div class="container nav-inner">
 
-        <div class="stats" id="stats">Loading...</div>
+    <div>
+      <div class="logo-main">Miliwatt Electronics</div>
+      <div class="logo-sub">
+        ServaDrone operates under Miliwatt Electronics Private Limited
+      </div>
     </div>
+
+    <div class="nav-right">
+      <div class="nav-stat" id="stats">—</div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+    </div>
+
+  </div>
 </nav>
 
 <div class="container">
 
 <section class="hero">
 
-<div>
-    <div class="badge">🇮🇳 MADE IN INDIA</div>
+  <div class="hero-label">
+    Made in India · Digital Video Systems
+  </div>
 
-    <h1>
-        Mission-Critical<br>
-        Digital Video Systems
-    </h1>
+  <h1>
+    Mission-critical wireless video<br>
+    <strong>engineered for what's next</strong>
+  </h1>
 
-    <p class="tagline">
-        Ultra-low latency wireless video transmission engineered for FPV, robotics, surveillance, defense, and next-generation autonomous systems.
-    </p>
+  <p class="tagline">
+    Ultra-low latency transmission for FPV drones, robotics, surveillance,
+    defense, and autonomous systems. Built in India. Ready for the world.
+  </p>
 
-    <form class="email-form" id="emailForm">
-        <input
-            type="email"
-            id="emailInput"
-            placeholder="Enter your email"
-            required
-            autocomplete="email"
-        >
-
-        <button type="submit" class="cta-btn">
-            Join Waitlist
-        </button>
-    </form>
-</div>
+  <form class="email-form" id="emailForm">
+    <input
+      type="email"
+      id="emailInput"
+      placeholder="Your email address"
+      required
+      autocomplete="email"
+    >
+    <button type="submit" class="cta-btn">
+      Join Waitlist
+    </button>
+  </form>
 
 </section>
+
+<div class="data-bar">
+
+  <div class="data-item">
+    <div class="data-label">Latency</div>
+    <div class="data-val">&lt;60ms</div>
+  </div>
+
+  <div class="data-item">
+    <div class="data-label">Range</div>
+    <div class="data-val">30km</div>
+  </div>
+
+  <div class="data-item">
+    <div class="data-label">Resolution</div>
+    <div class="data-val">1080p</div>
+  </div>
+
+  <div class="data-item">
+    <div class="data-label">Platform</div>
+    <div class="data-val">OEM</div>
+  </div>
+
+  <div class="data-item">
+    <div class="data-label">Origin</div>
+    <div class="data-val">India</div>
+  </div>
+
+</div>
 
 <div class="video-section">
-    <div class="video-container">
-        <div class="video-wrapper">
-            <iframe
-                id="youtubeVideo"
-                src="https://www.youtube.com/embed/nDn8jw9-HRA?rel=0&modestbranding=1"
-                frameborder="0"
-                allowfullscreen>
-            </iframe>
-        </div>
+
+  <div class="section-label">Live Demo Footage</div>
+
+  <div class="video-container">
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/nDn8jw9-HRA?rel=0&modestbranding=1"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
     </div>
-</div>
-
-<section>
-
-<h2 class="section-title">
-Building India's Drone Electronics Future
-</h2>
-
-<p class="section-text">
-India's drone industry has relied heavily on imported video transmission systems for years. Miliwatt Electronics is building indigenous high-performance digital video systems engineered specifically for the demanding requirements of modern drone and robotic platforms.
-</p>
-
-<p class="section-text">
-Our mission is to establish India as a leader in mission-critical drone electronics with ultra-low latency transmission systems, advanced RF engineering, and highly customizable OEM-ready platforms.
-</p>
-
-</section>
-
-<section>
-
-<h2 class="section-title">
-Performance That Competes Globally
-</h2>
-
-<div class="specs-grid">
-
-<div class="spec-card">
-<div class="spec-icon">⚡</div>
-<div class="spec-title">Sub-60ms Latency</div>
-<div class="spec-value">
-Real-time responsiveness for precision flight and autonomous systems.
-</div>
-</div>
-
-<div class="spec-card">
-<div class="spec-icon">📡</div>
-<div class="spec-title">30km Range</div>
-<div class="spec-value">
-Long-range transmission engineered for cinema, surveillance, and robotics.
-</div>
-</div>
-
-<div class="spec-card">
-<div class="spec-icon">🎥</div>
-<div class="spec-title">1080p Digital</div>
-<div class="spec-value">
-High-definition encrypted digital video built for professional operations.
-</div>
-</div>
-
-<div class="spec-card">
-<div class="spec-icon">🛡️</div>
-<div class="spec-title">OEM Ready</div>
-<div class="spec-value">
-Flexible architecture for enterprise, defense, and robotics integration.
-</div>
-</div>
+  </div>
 
 </div>
 
-</section>
+<div class="content-section">
 
-<section>
+  <div class="section-grid">
 
-<h2 class="section-title">
-Engineered for Extreme Environments
-</h2>
+    <div class="section-aside">01 — About</div>
 
-<div class="features-list">
+    <div>
 
-<div class="feature-item">
-<div class="feature-icon">🔧</div>
-<div class="feature-content">
-<h3>Full In-House Stack</h3>
-<p>
-Complete RF and encoder development enables deep optimization and rapid iteration cycles.
-</p>
-</div>
-</div>
+      <h2 class="section-title">
+        Building India's<br>
+        <strong>drone electronics future</strong>
+      </h2>
 
-<div class="feature-item">
-<div class="feature-icon">🚀</div>
-<div class="feature-content">
-<h3>Low Latency Architecture</h3>
-<p>
-Purpose-built transmission protocols designed for mission-critical responsiveness.
-</p>
-</div>
-</div>
+      <p class="section-text">
+        India's drone industry has long relied on imported video transmission systems.
+        Miliwatt Electronics is building indigenous high-performance digital video
+        systems engineered for the demanding requirements of modern drone and robotic platforms.
+      </p>
 
-<div class="feature-item">
-<div class="feature-icon">🎛️</div>
-<div class="feature-content">
-<h3>Custom Integrations</h3>
-<p>
-Flexible platform supporting custom frequencies, protocols, and OEM requirements.
-</p>
-</div>
-</div>
+      <p class="section-text">
+        Our mission is to establish India as a leader in mission-critical drone electronics
+        — with ultra-low latency transmission, advanced RF engineering,
+        and highly customizable OEM-ready platforms.
+      </p>
 
-<div class="feature-item">
-<div class="feature-icon">🇮🇳</div>
-<div class="feature-content">
-<h3>Designed in India</h3>
-<p>
-Building advanced drone electronics locally to reduce dependency on imported systems.
-</p>
-</div>
-</div>
+    </div>
+
+  </div>
 
 </div>
 
-</section>
+<div class="content-section">
 
-<section class="cta-section">
+  <div class="section-grid">
 
-<h2 class="section-title">
-Early Access Program
-</h2>
+    <div class="section-aside">02 — Performance</div>
 
-<p class="section-text" style="margin:auto auto 40px;">
-Join the waitlist for launch updates, early access, and future developer programs.
-</p>
+    <div>
 
-<form class="email-form" id="emailFormBottom">
+      <h2 class="section-title">
+        Specifications that<br>
+        <strong>compete globally</strong>
+      </h2>
 
-<input
-    type="email"
-    placeholder="Enter your email"
-    required
-    autocomplete="email"
->
+      <div class="specs-table">
 
-<button type="submit" class="cta-btn">
-    Join Waitlist
-</button>
+        <div class="spec-row">
+          <div class="spec-name">Latency</div>
+          <div class="spec-value">&lt;60ms</div>
+          <div class="spec-desc">
+            Real-time responsiveness for precision flight and autonomous systems.
+          </div>
+        </div>
 
-</form>
+        <div class="spec-row">
+          <div class="spec-name">Range</div>
+          <div class="spec-value">30km</div>
+          <div class="spec-desc">
+            Long-range transmission for cinema, surveillance, and robotics.
+          </div>
+        </div>
 
-</section>
+        <div class="spec-row">
+          <div class="spec-name">Video</div>
+          <div class="spec-value">1080p</div>
+          <div class="spec-desc">
+            High-definition encrypted digital video for professional operations.
+          </div>
+        </div>
+
+        <div class="spec-row">
+          <div class="spec-name">Platform</div>
+          <div class="spec-value">OEM</div>
+          <div class="spec-desc">
+            Flexible architecture for enterprise, defense, and robotics integration.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="content-section">
+
+  <div class="section-grid">
+
+    <div class="section-aside">03 — Architecture</div>
+
+    <div>
+
+      <h2 class="section-title">
+        Engineered for<br>
+        <strong>extreme environments</strong>
+      </h2>
+
+      <div class="features-table">
+
+        <div class="feature-row">
+          <div class="feature-name">Full in-house stack</div>
+          <div class="feature-desc">
+            Complete RF and encoder development enables deep optimization
+            and rapid iteration cycles.
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-name">Low latency architecture</div>
+          <div class="feature-desc">
+            Purpose-built transmission protocols designed for mission-critical responsiveness.
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-name">Custom integrations</div>
+          <div class="feature-desc">
+            Flexible platform supporting custom frequencies, protocols,
+            and OEM requirements.
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-name">Designed in India</div>
+          <div class="feature-desc">
+            Building advanced drone electronics locally to reduce dependency
+            on imported systems.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="cta-section">
+
+  <div class="section-label">Early Access Program</div>
+
+  <h2 class="section-title" style="margin-bottom:12px;">
+    Join the <strong>waitlist</strong>
+  </h2>
+
+  <p class="section-text" style="margin-bottom:36px;">
+    Sign up for launch updates, early access, and future developer programs.
+  </p>
+
+  <form class="email-form" id="emailFormBottom">
+    <input
+      type="email"
+      placeholder="Your email address"
+      required
+      autocomplete="email"
+    >
+    <button type="submit" class="cta-btn">
+      Join Waitlist
+    </button>
+  </form>
+
+</div>
 
 <footer>
 
-<div class="footer-logo">
-Miliwatt Electronics
-</div>
+  <div class="footer-inner">
 
-<p class="footer-text">
-Building the foundational communication layer for drones and robotic systems.
-</p>
+    <div>
+      <div class="logo-main">Miliwatt Electronics</div>
+      <div class="logo-sub" style="margin-top:6px;">
+        ServaDrone operates under Miliwatt Electronics Private Limited
+      </div>
+    </div>
 
-<p class="footer-text" style="margin-top:10px;font-size:13px;">
-ServaDrone operates under Miliwatt Electronics Private Limited
-</p>
+    <div class="footer-right">
 
-<div class="socials">
+      <p>
+        Building the foundational communication layer<br>
+        for drones and robotic systems.
+      </p>
 
-<a href="mailto:servadrone@gmail.com">
-Email
-</a>
+      <div class="socials">
+        <a href="mailto:servadrone@gmail.com">Email</a>
+        <a href="https://www.youtube.com/@servadrone" target="_blank">YouTube</a>
+        <a href="https://www.linkedin.com/company/servadrone/" target="_blank">LinkedIn</a>
+      </div>
 
-<a href="https://www.youtube.com/@servadrone" target="_blank">
-YouTube
-</a>
+    </div>
 
-<a href="https://www.linkedin.com/company/servadrone/" target="_blank">
-LinkedIn
-</a>
-
-</div>
+  </div>
 
 </footer>
 
 </div>
 
 <script>
-console.log('Script starting...');
 let isSubmitting = false;
 
-// Load stats function
+const body = document.body;
+const themeToggle = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+  if(theme === 'light') {
+    body.classList.add('light-theme');
+  } else {
+    body.classList.remove('light-theme');
+  }
+  localStorage.setItem('theme', theme);
+}
+
+const savedTheme = localStorage.getItem('theme');
+
+if(savedTheme) {
+  applyTheme(savedTheme);
+} else {
+  applyTheme('dark');
+}
+
+themeToggle.addEventListener('click', () => {
+  const isLight = body.classList.contains('light-theme');
+  applyTheme(isLight ? 'dark' : 'light');
+});
+
 async function loadStats() {
-    try {
-        console.log('Loading stats...');
-        const response = await fetch('/api/stats');
-        const data = await response.json();
-        console.log('Stats loaded:', data);
-        document.getElementById('stats').textContent = `${data.totalSignups} on waitlist`;
-    } catch (error) {
-        console.error('Stats error:', error);
-        document.getElementById('stats').textContent = 'Join the waitlist';
-    }
+  try {
+    const response = await fetch('/api/stats');
+    const data = await response.json();
+    document.getElementById('stats').textContent =
+      `${data.totalSignups} on waitlist`;
+  } catch {
+    document.getElementById('stats').textContent =
+      'Join the waitlist';
+  }
 }
 
-// Show notification function
 function showNotification(message, type) {
-    console.log('Showing notification:', type, message);
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.className = `notification ${type}`;
-    notification.classList.add('show');
+  const n = document.getElementById('notification');
 
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 4000);
+  n.textContent = message;
+  n.className = `notification ${type}`;
+  n.classList.add('show');
+
+  setTimeout(() => {
+    n.classList.remove('show');
+  }, 4000);
 }
 
-// Handle form submit
 async function handleSubmit(e) {
-    e.preventDefault();
 
-    if (isSubmitting) {
-        return;
+  e.preventDefault();
+
+  if(isSubmitting) return;
+
+  const form = e.target;
+  const emailInput = form.querySelector('input[type="email"]');
+  const button = form.querySelector('button');
+
+  const email = emailInput.value.trim();
+
+  if(!email){
+    showNotification(
+      'Please enter your email address',
+      'error'
+    );
+    return;
+  }
+
+  isSubmitting = true;
+
+  button.disabled = true;
+  button.textContent = 'Sending...';
+
+  try {
+
+    const response = await fetch('/api/subscribe', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({ email }),
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+
+      showNotification(data.message, 'success');
+
+      emailInput.value = '';
+
+      loadStats();
+
+    } else {
+
+      showNotification(data.message, 'error');
+
     }
 
-    const form = e.target;
-    const emailInput = form.querySelector('input[type="email"]');
-    const button = form.querySelector('button');
-    const email = emailInput.value.trim();
+  } catch {
 
-    if (!email) {
-        showNotification('Please enter your email address', 'error');
-        return;
-    }
+    showNotification(
+      'Network error. Please try again.',
+      'error'
+    );
 
-    isSubmitting = true;
-    button.disabled = true;
-    button.textContent = 'Joining...';
+  } finally {
 
-    try {
-        const response = await fetch('/api/subscribe', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email }),
-        });
+    isSubmitting = false;
 
-        const data = await response.json();
+    button.disabled = false;
+    button.textContent = 'Join Waitlist';
 
-        if (data.success) {
-            showNotification(data.message, 'success');
-            emailInput.value = '';
-            loadStats();
-        } else {
-            showNotification(data.message, 'error');
-        }
-    } catch (error) {
-        console.error('Network error:', error);
-        showNotification('Network error. Please try again.', 'error');
-    } finally {
-        isSubmitting = false;
-        button.disabled = false;
-        button.textContent = 'Join Waitlist';
-    }
+  }
 }
 
-const form1 = document.getElementById('emailForm');
-const form2 = document.getElementById('emailFormBottom');
+document
+  .getElementById('emailForm')
+  .addEventListener('submit', handleSubmit);
 
-if (form1) {
-    form1.addEventListener('submit', handleSubmit);
-}
-
-if (form2) {
-    form2.addEventListener('submit', handleSubmit);
-}
+document
+  .getElementById('emailFormBottom')
+  .addEventListener('submit', handleSubmit);
 
 loadStats();
-setInterval(loadStats, 30000);
 
-console.log('Script initialization complete!');
+setInterval(loadStats, 30000);
 </script>
 
 </body>
