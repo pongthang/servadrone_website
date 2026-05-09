@@ -221,3 +221,36 @@ app.listen(PORT, () => {
  ```
 
  above is a code for nodejs webapp to collect emails. it first read the data and get the number of entries. when email is added, first check for same entry, then add the new emails only. Right now mongodb is used. but use google sheet instead , credentials.json present in the same folder. and sheet ID is inside .env file as SHEET_ID variable. keep the same functionality , just change the mongodb in google sheet, datetime , and email should be recorded.
+
+
+
+
+
+
+ add a highlight color , lik Miliwatt , we can highlight the watt using the color, mention this how to change I want to test with different color , select so that it match the design. now the website is focus on product and solution content , but focus on product instead, add minimal content for problem and solution , our product name is IRIS below is its specs:
+ our drone communication system - IRIS with the following specifications:
+1. Supported Camera Interfaces
+HDMI input
+USB (UVC)
+CSI
+Ethernet (RTSP/UDP from an onboard computer)
+2. Telemetry Support
+MAVLink
+MSP
+Custom message protocols
+3. Video Performance
+Resolution: 1080p at 90 FPS
+Latency: ~50 ms
+Range: Up to 7 km
+Compression: H.264 / H.265
+Bitrate: 20 Mbps (up to 4 km)
+4. Ground Station (VRX)
+Optional integrated display (handheld ground controller)
+Machine-readable video output via Ethernet (RTSP/UDP) or USB
+HDMI output
+Additionally, several parameters such as physical size, range, and input/output configurations can be customized based on specific requirements. We also provide a complete SDK along with technical support for integration.
+
+Get access to early sample or need customized product for your need. Send your query, 
+
+Name, Name of company,email, sample number , expect number future orders
+any query to us. make a form for the above, and when click submit upload the content to the sheet same as the join waitlist google sheet, for simply join waitlist will send empty entries for other fields.

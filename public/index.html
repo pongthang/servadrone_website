@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Miliwatt Electronics — High Performance Digital Drone Video Systems</title>
+<title>Miliwatt Electronics — IRIS Drone Communication System</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +27,23 @@
   --border-strong:#3b3b3d;
   --accent:#ffffff;
   --shadow:0 10px 40px rgba(0,0,0,0.35);
+
+  /* ── Brand Highlight Colour ─────────────────────────────────────────────
+     To change the highlight colour, edit --highlight below.
+     This colour is applied to "Electronics" in "Miliwatt Electronics",
+     the IRIS product name, and select accent elements throughout the page.
+
+     Suggestions that match this dark aerospace design:
+       Electric blue  → #4f8ef7   ← current
+       Amber / gold   → #e8a44a
+       Teal           → #2ec4b6
+       Violet         → #8b5cf6
+       Warm white     → #f0ede8   (nearly monochrome)
+  ──────────────────────────────────────────────────────────────────────── */
+  --highlight:#4f8ef7;
+
+  /* Light-mode version of highlight (slightly deeper for contrast) */
+  --highlight-light:#2563eb;
 }
 
 body.light-theme{
@@ -40,6 +57,7 @@ body.light-theme{
   --border-strong:#cfcfd2;
   --accent:#0a0a0a;
   --shadow:0 10px 30px rgba(0,0,0,0.06);
+  --highlight:var(--highlight-light);
 }
 
 html{
@@ -100,11 +118,25 @@ body.light-theme nav{
   color:var(--text);
 }
 
+/* The highlighted portion of "Miliwatt" */
+.logo-main .brand-highlight{
+  color:var(--highlight);
+  transition:color 0.35s ease;
+}
+
 .logo-sub{
-  font-size:11px;
-  color:var(--text-dim);
-  margin-top:2px;
+  font-size:12px;
+  color:var(--text-mid);
+  margin-top:3px;
   font-weight:400;
+}
+
+.logo-sub .serva-name{
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-thickness:1px;
+  color:var(--text);
+  font-weight:500;
 }
 
 .nav-stat{
@@ -159,19 +191,9 @@ body.light-theme .live-waitlist{
 }
 
 @keyframes livePulse{
-  0%{
-    transform:scale(0.8);
-    opacity:0.45;
-  }
-
-  70%{
-    transform:scale(2.4);
-    opacity:0;
-  }
-
-  100%{
-    opacity:0;
-  }
+  0%{transform:scale(0.8);opacity:0.45;}
+  70%{transform:scale(2.4);opacity:0;}
+  100%{opacity:0;}
 }
 
 .live-text{
@@ -187,75 +209,63 @@ body.light-theme .live-waitlist{
   color:var(--text);
 }
 
-.theme-toggle {
-  width: 52px;
-  height: 28px;
-  border-radius: 999px;
-  border: 1px solid var(--border-strong);
-  background: var(--bg2);
-  position: relative;
-  cursor: pointer;
-  transition: background 0.35s ease, border-color 0.35s ease;
-  flex-shrink: 0;
+.theme-toggle{
+  width:52px;
+  height:28px;
+  border-radius:999px;
+  border:1px solid var(--border-strong);
+  background:var(--bg2);
+  position:relative;
+  cursor:pointer;
+  transition:background 0.35s ease, border-color 0.35s ease;
+  flex-shrink:0;
 }
 
-.theme-toggle:hover {
-  border-color: var(--text-dim);
+.theme-toggle:hover{
+  border-color:var(--text-dim);
 }
 
-.theme-toggle .toggle-track {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 7px;
-  pointer-events: none;
+.theme-toggle .toggle-track{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7px;
+  pointer-events:none;
 }
 
-.theme-toggle .toggle-track svg {
-  width: 11px;
-  height: 11px;
-  flex-shrink: 0;
-  transition: opacity 0.3s ease;
+.theme-toggle .toggle-track svg{
+  width:11px;
+  height:11px;
+  flex-shrink:0;
+  transition:opacity 0.3s ease;
 }
 
-.theme-toggle .icon-sun {
-  color: var(--text-dim);
-  opacity: 1;
+.theme-toggle .icon-sun{color:var(--text-dim);opacity:1;}
+.theme-toggle .icon-moon{color:var(--text-dim);opacity:0.4;}
+body.light-theme .theme-toggle .icon-sun{opacity:0.4;}
+body.light-theme .theme-toggle .icon-moon{opacity:1;}
+
+.theme-toggle .toggle-thumb{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:var(--accent);
+  transition:transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s ease;
+  pointer-events:none;
+  box-shadow:0 1px 4px rgba(0,0,0,0.35);
 }
 
-.theme-toggle .icon-moon {
-  color: var(--text-dim);
-  opacity: 0.4;
+body.light-theme .theme-toggle .toggle-thumb{
+  transform:translateX(24px);
+  box-shadow:0 1px 6px rgba(0,0,0,0.18);
 }
 
-body.light-theme .theme-toggle .icon-sun {
-  opacity: 0.4;
-}
-
-body.light-theme .theme-toggle .icon-moon {
-  opacity: 1;
-}
-
-.theme-toggle .toggle-thumb {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--accent);
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.35s ease;
-  pointer-events: none;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.35);
-}
-
-body.light-theme .theme-toggle .toggle-thumb {
-  transform: translateX(24px);
-  box-shadow: 0 1px 6px rgba(0,0,0,0.18);
-}
+/* ── Hero ───────────────────────────────────────────────────── */
 
 .hero{
   padding:110px 0 90px;
@@ -285,6 +295,13 @@ body.light-theme .theme-toggle .toggle-thumb {
   font-weight:600;
 }
 
+/* IRIS name highlight in the hero */
+.iris-name{
+  color:var(--highlight);
+  font-weight:600;
+  transition:color 0.35s ease;
+}
+
 .tagline{
   max-width:600px;
   font-size:16px;
@@ -298,11 +315,13 @@ body.light-theme .theme-toggle .toggle-thumb {
   max-width:480px;
 }
 
-input[type="email"]{
+input[type="email"],
+input[type="text"],
+input[type="number"],
+textarea{
   flex:1;
   padding:14px 18px;
   border:1px solid var(--border-strong);
-  border-right:none;
   background:var(--card);
   color:var(--text);
   font-family:'Inter',sans-serif;
@@ -311,12 +330,22 @@ input[type="email"]{
   transition:all 0.25s ease;
 }
 
-input[type="email"]::placeholder{
+input[type="email"]{
+  border-right:none;
+}
+
+input[type="email"]::placeholder,
+input[type="text"]::placeholder,
+input[type="number"]::placeholder,
+textarea::placeholder{
   color:var(--text-dim);
 }
 
-input[type="email"]:focus{
-  border-color:var(--accent);
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus{
+  border-color:var(--highlight);
 }
 
 .cta-btn{
@@ -338,6 +367,8 @@ input[type="email"]:focus{
   opacity:0.92;
 }
 
+/* ── Data bar ───────────────────────────────────────────────── */
+
 .data-bar{
   display:flex;
   align-items:center;
@@ -353,13 +384,8 @@ input[type="email"]:focus{
   border-right:1px solid var(--border);
 }
 
-.data-item:first-child{
-  padding-left:0;
-}
-
-.data-item:last-child{
-  border-right:none;
-}
+.data-item:first-child{padding-left:0;}
+.data-item:last-child{border-right:none;}
 
 .data-label{
   font-size:11px;
@@ -376,6 +402,13 @@ input[type="email"]:focus{
   letter-spacing:-0.03em;
   color:var(--text);
 }
+
+/* highlight accent on data values */
+.data-val.accented{
+  color:var(--highlight);
+}
+
+/* ── Video section ──────────────────────────────────────────── */
 
 .video-section{
   padding:80px 0;
@@ -411,6 +444,8 @@ input[type="email"]:focus{
   height:100%;
   inset:0;
 }
+
+/* ── Content sections ───────────────────────────────────────── */
 
 .content-section{
   padding:84px 0;
@@ -454,17 +489,33 @@ input[type="email"]:focus{
   margin-bottom:18px;
 }
 
-.specs-table,
-.features-table{
+/* ── Specs table (IRIS product) ─────────────────────────────── */
+
+.specs-block{
   margin-top:42px;
-  border-top:1px solid var(--border);
+}
+
+.specs-group{
+  margin-bottom:40px;
+}
+
+.specs-group-label{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--highlight);
+  margin-bottom:16px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--border);
+  transition:color 0.35s ease;
 }
 
 .spec-row{
   display:grid;
-  grid-template-columns:160px 100px 1fr;
+  grid-template-columns:200px 1fr;
   gap:22px;
-  padding:24px 0;
+  padding:16px 0;
   border-bottom:1px solid var(--border);
   align-items:baseline;
 }
@@ -472,22 +523,52 @@ input[type="email"]:focus{
 .spec-name{
   font-size:12px;
   font-weight:500;
-  letter-spacing:0.08em;
+  letter-spacing:0.06em;
   text-transform:uppercase;
   color:var(--text-dim);
 }
 
 .spec-value{
+  font-size:14px;
+  font-weight:400;
+  color:var(--text);
+  line-height:1.7;
+}
+
+/* Tags for camera interfaces etc. */
+.spec-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:2px;
+}
+
+.spec-tag{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.06em;
+  padding:4px 10px;
+  border:1px solid var(--border-strong);
+  color:var(--text-mid);
+  background:var(--bg2);
+  border-radius:3px;
+}
+
+/* Featured value (highlight colour for key numbers) */
+.spec-value .num{
   font-size:20px;
   font-weight:300;
   letter-spacing:-0.02em;
-  color:var(--text);
+  color:var(--highlight);
+  margin-right:4px;
+  transition:color 0.35s ease;
 }
 
-.spec-desc{
-  font-size:14px;
-  color:var(--text-dim);
-  line-height:1.7;
+/* ── Features table ─────────────────────────────────────────── */
+
+.features-table{
+  margin-top:42px;
+  border-top:1px solid var(--border);
 }
 
 .feature-row{
@@ -500,9 +581,10 @@ input[type="email"]:focus{
 }
 
 .feature-name{
-  font-size:14px;
-  font-weight:500;
+  font-size:15px;
+  font-weight:700;
   color:var(--text);
+  letter-spacing:-0.01em;
 }
 
 .feature-desc{
@@ -511,10 +593,121 @@ input[type="email"]:focus{
   line-height:1.8;
 }
 
+/* ── Sample / Contact form section ──────────────────────────── */
+
+.contact-section{
+  padding:90px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:54px;
+  align-items:start;
+}
+
+.contact-form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  border:1px solid var(--border);
+}
+
+.form-field{
+  display:flex;
+  flex-direction:column;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.form-field:nth-child(2n){
+  border-right:none;
+}
+
+/* last row of a 2-col grid: remove bottom border only if it's the final pair */
+.form-field.full-width{
+  grid-column:1/-1;
+  border-right:none;
+}
+
+.form-field.no-bottom{
+  border-bottom:none;
+}
+
+.field-label{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  padding:12px 18px 0;
+}
+
+.form-field input,
+.form-field textarea{
+  border:none;
+  background:transparent;
+  padding:8px 18px 14px;
+  resize:none;
+  width:100%;
+}
+
+.form-field textarea{
+  min-height:100px;
+}
+
+.form-submit-row{
+  grid-column:1/-1;
+  border-top:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px;
+  gap:18px;
+}
+
+.form-note{
+  font-size:12px;
+  color:var(--text-dim);
+  line-height:1.6;
+}
+
+.submit-btn{
+  padding:14px 30px;
+  border:1px solid var(--border-strong);
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  color:var(--bg);
+  background:var(--highlight);
+  border-color:var(--highlight);
+  transition:all 0.25s ease;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+.submit-btn:hover{
+  transform:translateY(-1px);
+  opacity:0.88;
+}
+
+.submit-btn:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* ── CTA / waitlist section ─────────────────────────────────── */
+
 .cta-section{
   padding:90px 0;
   border-bottom:1px solid var(--border);
 }
+
+/* ── Notification ───────────────────────────────────────────── */
 
 .notification{
   position:fixed;
@@ -533,21 +726,13 @@ input[type="email"]:focus{
   box-shadow:var(--shadow);
 }
 
-.notification.show{
-  transform:translateX(0);
-}
+.notification.show{transform:translateX(0);}
+.notification.success{border-color:#3d7d4b;}
+.notification.error{border-color:#a33a3a;}
 
-.notification.success{
-  border-color:#3d7d4b;
-}
+/* ── Footer ─────────────────────────────────────────────────── */
 
-.notification.error{
-  border-color:#a33a3a;
-}
-
-footer{
-  padding:70px 0;
-}
+footer{padding:70px 0;}
 
 .footer-inner{
   display:flex;
@@ -563,9 +748,7 @@ footer{
   line-height:1.7;
 }
 
-.socials{
-  display:flex;
-}
+.socials{display:flex;}
 
 .socials a{
   text-decoration:none;
@@ -577,76 +760,52 @@ footer{
   transition:all 0.25s ease;
 }
 
-.socials a:last-child{
-  border-right:1px solid var(--border);
-}
+.socials a:last-child{border-right:1px solid var(--border);}
+.socials a:hover{color:var(--text);border-color:var(--border-strong);background:var(--bg2);}
 
-.socials a:hover{
-  color:var(--text);
-  border-color:var(--border-strong);
-  background:var(--bg2);
-}
+/* ── Responsive ─────────────────────────────────────────────── */
 
 @media(max-width:720px){
+  .container{padding:0 24px;}
 
-  .container{
-    padding:0 24px;
-  }
+  .nav-inner{align-items:flex-start;flex-direction:column;}
+  .nav-right{width:100%;justify-content:space-between;}
 
-  .nav-inner{
-    align-items:flex-start;
-    flex-direction:column;
-  }
+  .hero{padding:72px 0 58px;}
 
-  .nav-right{
-    width:100%;
-    justify-content:space-between;
-  }
-
-  .hero{
-    padding:72px 0 58px;
-  }
-
-  .section-grid{
+  .section-grid,
+  .contact-grid{
     grid-template-columns:1fr;
     gap:18px;
   }
 
   .spec-row{
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-  }
-
-  .spec-desc{
-    display:none;
-  }
-
-  .feature-row{
     grid-template-columns:1fr;
+    gap:6px;
   }
 
-  .footer-inner{
-    flex-direction:column;
-    gap:32px;
-  }
+  .feature-row{grid-template-columns:1fr;}
 
-  .data-item{
-    min-width:90px;
-    padding:0 16px;
-  }
+  .contact-form{grid-template-columns:1fr;}
 
-  .email-form{
-    flex-direction:column;
-  }
+  .form-field{border-right:none;}
+  .form-field:nth-child(2n){border-right:none;}
+
+  .form-submit-row{flex-direction:column;align-items:stretch;}
+  .submit-btn{width:100%;}
+
+  .footer-inner{flex-direction:column;gap:32px;}
+
+  .data-item{min-width:90px;padding:0 16px;}
+
+  .email-form{flex-direction:column;}
 
   input[type="email"]{
     border-right:1px solid var(--border-strong);
     border-bottom:none;
   }
 
-  .cta-btn{
-    width:100%;
-  }
+  .cta-btn{width:100%;}
 }
 </style>
 </head>
@@ -659,13 +818,13 @@ footer{
   <div class="container nav-inner">
 
     <div>
-      <div class="logo-main">Miliwatt Electronics</div>
+      <!-- "Miliwatt" is plain, "Electronics" is highlighted via .brand-highlight -->
+      <div class="logo-main">Miliwatt <span class="brand-highlight">Electronics</span></div>
       <div class="logo-sub">
-        ServaDrone operates under Miliwatt Electronics Private Limited
+        <span class="serva-name_1">ServaDrone</span> operates under Miliwatt Electronics Private Limited
       </div>
     </div>
 
-    <!-- FIX 1: added id="stats" span before the toggle -->
     <div class="nav-right">
       <div class="live-waitlist" id="stats">
         <span class="live-dot"></span>
@@ -673,7 +832,6 @@ footer{
       </div>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <div class="toggle-track">
-          <!-- Sun -->
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"/>
             <line x1="12" y1="1" x2="12" y2="3"/>
@@ -685,7 +843,6 @@ footer{
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
           </svg>
-          <!-- Moon -->
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
           </svg>
@@ -699,20 +856,23 @@ footer{
 
 <div class="container">
 
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+
 <section class="hero">
 
   <div class="hero-label">
-    Made in India · Digital Video Systems
+    Made in India · Drone Communication Systems
   </div>
 
   <h1>
-    Mission-critical wireless video<br>
-    <strong>engineered for what's next</strong>
+    <span class="iris-name">IRIS</span> — mission-critical<br>
+    <strong>wireless video for drones</strong>
   </h1>
 
   <p class="tagline">
-  A modular, production-grade communication and control layer for drones
-  and robotic systems — built in India, engineered for the world.
+    A production-grade communication and control layer for drones and
+    robotic systems. Low-latency digital video, multi-protocol telemetry,
+    and a complete SDK Support — built in India, engineered for the world.
   </p>
 
   <form class="email-form" id="emailForm">
@@ -730,21 +890,28 @@ footer{
 
 </section>
 
+<!-- ── Data bar ───────────────────────────────────────────────── -->
+
 <div class="data-bar">
 
   <div class="data-item">
     <div class="data-label">Latency</div>
-    <div class="data-val">&lt;60ms</div>
+    <div class="data-val">~50ms</div>
   </div>
 
   <div class="data-item">
     <div class="data-label">Range</div>
-    <div class="data-val">30km</div>
+    <div class="data-val">7 km</div>
   </div>
 
   <div class="data-item">
     <div class="data-label">Resolution</div>
-    <div class="data-val">1080p</div>
+    <div class="data-val">1080p / 90fps</div>
+  </div>
+
+  <div class="data-item">
+    <div class="data-label">Bitrate</div>
+    <div class="data-val">20 Mbps</div>
   </div>
 
   <div class="data-item">
@@ -753,6 +920,8 @@ footer{
   </div>
 
 </div>
+
+<!-- ── Video ─────────────────────────────────────────────────── -->
 
 <div class="video-section">
 
@@ -770,166 +939,283 @@ footer{
 
 </div>
 
+<!-- ── 01 — The Problem (minimal) ────────────────────────────── -->
+
 <div class="content-section">
-
   <div class="section-grid">
-
     <div class="section-aside">01 — The Problem</div>
-
-<div>
-  <h2 class="section-title">
-    Every team is either<br>
-    <strong>locked in or rebuilding</strong>
-  </h2>
-
-  <p class="section-text">
-    Across inspection, defense, agriculture, logistics, and FPV —
-    hundreds of drone and robotics companies are emerging with different
-    architectures and mission requirements. Yet they all depend on the
-    same critical foundation: low-latency, reliable real-time communication
-    for video, control, and data.
-  </p>
-
-  <p class="section-text">
-    That foundation is broken. Closed ecosystems like DJI and Walksnail
-    deliver strong performance but enforce rigid architectures and platform
-    lock-in. DIY solutions demand significant engineering effort to reach
-    reliability — reinvented systems, delayed timelines, inconsistent results.
-  </p>
-
-  <p class="section-text">
-    The result: enterprise OEMs cannot fully control their stack. Startups
-    waste months rebuilding infrastructure instead of building product.
-    FPV operators face high costs and poor modularity — a single crash
-    often means replacing an entire system rather than a component.
-  </p>
-
-</div>
-
+    <div>
+      <h2 class="section-title">
+        Closed ecosystems or<br>
+        <strong>rebuilding from scratch</strong>
+      </h2>
+      <p class="section-text">
+        Drone teams today choose between rigid, proprietary platforms that
+        enforce vendor lock-in, or DIY stacks that drain months of engineering
+        effort before a single flight. Neither path lets teams focus on what
+        they actually build — autonomy, payload, or application-specific intelligence.
+      </p>
+    </div>
   </div>
-
 </div>
+
+<!-- ── 02 — IRIS Product Specs ───────────────────────────────── -->
 
 <div class="content-section">
-
   <div class="section-grid">
 
-    <div class="section-aside">02 — Performance</div>
+    <div class="section-aside">02 — IRIS</div>
 
     <div>
 
       <h2 class="section-title">
-        Specifications that<br>
-        <strong>compete globally</strong>
+        One system.<br>
+        <strong>Every interface.</strong>
       </h2>
 
-      <div class="specs-table">
+      <p class="section-text">
+        IRIS is a high-performance, modular drone communication system engineered
+        for demanding OEM integration, defense, inspection, and FPV applications.
+        Delivering 1080p at 90 FPS with sub-50 ms latency over 7 km, it sets a
+        new bar for real-world reliability — every parameter, from physical form
+        factor to RF configuration, is customisable to your mission.
+      </p>
 
-        <div class="spec-row">
-          <div class="spec-name">Latency</div>
-          <div class="spec-value">&lt;60ms</div>
-          <div class="spec-desc">
-            Real-time responsiveness for precision flight and autonomous systems.
+      <div class="specs-block">
+
+        <!-- Camera Interfaces -->
+        <div class="specs-group">
+          <div class="specs-group-label">Camera Interfaces</div>
+          <div class="spec-row">
+            <div class="spec-name">Supported Inputs</div>
+            <div class="spec-value">
+              <div class="spec-tags">
+                <span class="spec-tag">HDMI</span>
+                <span class="spec-tag">USB — UVC</span>
+                <span class="spec-tag">CSI</span>
+                <span class="spec-tag">Ethernet RTSP/UDP</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="spec-row">
-          <div class="spec-name">Range</div>
-          <div class="spec-value">30km</div>
-          <div class="spec-desc">
-            Long-range transmission for cinema, surveillance, and robotics.
+        <!-- Telemetry -->
+        <div class="specs-group">
+          <div class="specs-group-label">Telemetry Support</div>
+          <div class="spec-row">
+            <div class="spec-name">Protocols</div>
+            <div class="spec-value">
+              <div class="spec-tags">
+                <span class="spec-tag">MAVLink</span>
+                <span class="spec-tag">MSP</span>
+                <span class="spec-tag">Custom Message Protocols</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="spec-row">
-          <div class="spec-name">Video</div>
-          <div class="spec-value">1080p</div>
-          <div class="spec-desc">
-            High-definition encrypted digital video for professional operations.
+        <!-- Video Performance -->
+        <div class="specs-group">
+          <div class="specs-group-label">Video Performance</div>
+          <div class="spec-row">
+            <div class="spec-name">Resolution &amp; Frame Rate</div>
+            <div class="spec-value"><span class="num">1080p</span>at 90 FPS</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-name">Latency</div>
+            <div class="spec-value"><span class="num">~50 ms</span>glass-to-glass</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-name">Range</div>
+            <div class="spec-value"><span class="num">7 km</span>maximum transmission</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-name">Compression</div>
+            <div class="spec-value">
+              <div class="spec-tags">
+                <span class="spec-tag">H.264</span>
+                <span class="spec-tag">H.265</span>
+              </div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-name">Bitrate</div>
+            <div class="spec-value"><span class="num">20 Mbps</span>up to 4 km</div>
           </div>
         </div>
 
-        <div class="spec-row">
-          <div class="spec-name">Platform</div>
-          <div class="spec-value">OEM</div>
-          <div class="spec-desc">
-            Flexible architecture for enterprise, defense, and robotics integration.
+        <!-- Ground Station -->
+        <div class="specs-group">
+          <div class="specs-group-label">Ground Station — VRX</div>
+          <div class="spec-row">
+            <div class="spec-name">Display</div>
+            <div class="spec-value">Optional integrated display on handheld ground controller</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-name">Machine Output</div>
+            <div class="spec-value">
+              <div class="spec-tags">
+                <span class="spec-tag">Ethernet RTSP/UDP</span>
+                <span class="spec-tag">USB</span>
+              </div>
+            </div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-name">Video Output</div>
+            <div class="spec-value">HDMI out</div>
           </div>
         </div>
 
-      </div>
+        <!-- Customisation note -->
+        <div class="specs-group">
+          <div class="specs-group-label">Customisation &amp; SDK</div>
+          <div class="spec-row">
+            <div class="spec-name">Configurable</div>
+            <div class="spec-value">Physical size, range, and I/O configurations adapted to your requirements</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-name">Developer Access</div>
+            <div class="spec-value">Full SDK with technical support for OEM integration</div>
+          </div>
+        </div>
+
+      </div><!-- /specs-block -->
 
     </div>
-
   </div>
-
 </div>
+
+<!-- ── 03 — Solution / What this unlocks (minimal) ───────────── -->
 
 <div class="content-section">
-
   <div class="section-grid">
 
-  <div class="section-aside">03 — What This Unlocks</div>
+    <div class="section-aside">03 — What You Get</div>
 
-<div>
+    <div>
+      <h2 class="section-title">
+        Focus on your product,<br>
+        <strong>not the plumbing</strong>
+      </h2>
 
-  <h2 class="section-title">
-    The foundational layer<br>
-    <strong>for real-time robotics</strong>
-  </h2>
+      <div class="features-table">
 
-  <div class="features-table">
+        <div class="feature-row">
+          <div class="feature-name">Production-ready base layer</div>
+          <div class="feature-desc">
+            Drop IRIS into your stack and skip rebuilding core communication
+            infrastructure — ship your product faster.
+          </div>
+        </div>
 
-    <div class="feature-row">
-      <div class="feature-name">Ready-made base layer</div>
-      <div class="feature-desc">
-        Drone and robotics companies adopt a production-grade communication
-        stack without rebuilding core infrastructure from scratch.
-      </div>
-    </div>
+        <div class="feature-row">
+          <div class="feature-name">Full OEM control</div>
+          <div class="feature-desc">
+            An SDK and customisable hardware — no vendor lock-in,
+            ever.
+          </div>
+        </div>
 
-    <div class="feature-row">
-      <div class="feature-name">Engineering focus shifts</div>
-      <div class="feature-desc">
-        Teams move from plumbing to higher-value work — autonomy, AI,
-        and application-specific capabilities.
-      </div>
-    </div>
+        <div class="feature-row">
+          <div class="feature-name">Modular by design</div>
+          <div class="feature-desc">
+            Replace components, not systems. Lower maintenance cost and faster
+            field recovery.
+          </div>
+        </div>
 
-    <div class="feature-row">
-      <div class="feature-name">Full OEM control</div>
-      <div class="feature-desc">
-        Enterprise integrators gain deep customization across frequencies,
-        protocols, and architectures — without third-party lock-in.
-      </div>
-    </div>
-
-    <div class="feature-row">
-      <div class="feature-name">Modular by design</div>
-      <div class="feature-desc">
-        Field operators replace components, not systems — reducing
-        failure costs by 40–60% compared to closed architectures.
       </div>
     </div>
 
   </div>
-
 </div>
+
+<!-- ── 04 — Sample / Contact Form ────────────────────────────── -->
+
+<div class="contact-section" id="sampleSection">
+  <div class="contact-grid">
+
+    <div class="section-aside">04 — Early Access</div>
+
+    <div>
+      <h2 class="section-title">
+        Get early access or<br>
+        <strong>request a sample</strong>
+      </h2>
+      <p class="section-text">
+        Interested in evaluating IRIS for your platform? Submit your details
+        below — we'll follow up with sample availability, pricing, and
+        customisation options.
+      </p>
+
+      <!-- Sample request form -->
+      <form id="sampleForm" style="margin-top:32px;">
+        <div class="contact-form">
+
+          <div class="form-field">
+            <label class="field-label" for="sf_name">Your name</label>
+            <input type="text" id="sf_name" name="name" placeholder="Full name" required>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label" for="sf_company">Company</label>
+            <input type="text" id="sf_company" name="company" placeholder="Organisation / startup" required>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label" for="sf_email">Email address</label>
+            <input type="email" id="sf_email" name="email" placeholder="you@company.com" required>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label" for="sf_samples">Sample units needed</label>
+            <input type="number" id="sf_samples" name="sampleNumber" placeholder="e.g. 2" min="1">
+          </div>
+
+          <div class="form-field">
+            <label class="field-label" for="sf_orders">Expected future orders</label>
+            <input type="number" id="sf_orders" name="futureOrders" placeholder="Estimated annual volume" min="0">
+          </div>
+
+          <div class="form-field">
+            <!-- empty right cell to keep grid balanced -->
+          </div>
+
+          <div class="form-field full-width no-bottom">
+            <label class="field-label" for="sf_query">Any questions or requirements</label>
+            <textarea id="sf_query" name="query" placeholder="Describe your use case, integration needs, customisation requirements, or any questions…"></textarea>
+          </div>
+
+          <div class="form-submit-row">
+            <p class="form-note">
+              We reply within 2–3 business days.<br>
+              All information is kept strictly confidential.
+            </p>
+            <button type="submit" class="submit-btn" id="sampleSubmitBtn">
+              Send Request
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
 
   </div>
-
 </div>
+
+<!-- ── Waitlist CTA ───────────────────────────────────────────── -->
 
 <div class="cta-section">
 
-  <div class="section-label">Early Access Program</div>
+  <div class="section-label">Waitlist</div>
 
   <h2 class="section-title" style="margin-bottom:12px;">
-    Join the <strong>waitlist</strong>
+    Stay in the loop with <strong>IRIS</strong>
   </h2>
 
   <p class="section-text" style="margin-bottom:36px;">
-    Sign up for launch updates, early access, and future developer programs.
+    Sign up for launch updates, early access, and developer programme invitations.
   </p>
 
   <form class="email-form" id="emailFormBottom">
@@ -946,45 +1232,47 @@ footer{
 
 </div>
 
-<footer>
+<!-- ── Footer ────────────────────────────────────────────────── -->
 
+<footer>
   <div class="footer-inner">
 
     <div>
-      <div class="logo-main">Miliwatt Electronics</div>
+      <div class="logo-main">Miliwatt <span class="brand-highlight">Electronics</span></div>
       <div class="logo-sub" style="margin-top:6px;">
-        ServaDrone operates under Miliwatt Electronics Private Limited
+        <span class="serva-name">ServaDrone</span> operates under Miliwatt Electronics Private Limited
       </div>
     </div>
 
     <div class="footer-right">
-
       <p>
         Building the foundational communication and control layer<br>
-        for drones and robotic systems.
+        for drones and robotic systems. Product: IRIS.
       </p>
-
       <div class="socials">
         <a href="mailto:servadrone@gmail.com">Email</a>
         <a href="https://www.youtube.com/@servadrone" target="_blank">YouTube</a>
         <a href="https://www.linkedin.com/company/servadrone/" target="_blank">LinkedIn</a>
       </div>
-
     </div>
 
   </div>
-
 </footer>
 
-</div>
+</div><!-- /container -->
 
 <script>
+/* ─────────────────────────────────────────────────────────────
+   State
+───────────────────────────────────────────────────────────────*/
 let isSubmitting = false;
+let isSampleSubmitting = false;
 
 const body = document.body;
 const themeToggle = document.getElementById('themeToggle');
 
-// FIX 2: applyTheme only toggles the class — no innerHTML overwrite
+/* ── Theme ──────────────────────────────────────────────────── */
+
 function applyTheme(theme) {
   if (theme === 'light') {
     body.classList.add('light-theme');
@@ -994,88 +1282,84 @@ function applyTheme(theme) {
   localStorage.setItem('theme', theme);
 }
 
-const savedTheme = localStorage.getItem('theme');
-applyTheme(savedTheme || 'dark');
+applyTheme(localStorage.getItem('theme') || 'dark');
 
 themeToggle.addEventListener('click', () => {
-  const isLight = body.classList.contains('light-theme');
-  applyTheme(isLight ? 'dark' : 'light');
+  applyTheme(body.classList.contains('light-theme') ? 'dark' : 'light');
 });
 
-async function loadStats() {
-  try {
-
-    const response = await fetch('/api/stats');
-    const data = await response.json();
-
-    document.getElementById('stats').innerHTML = `
-      <span class="live-dot"></span>
-      <span class="live-text">
-        <strong>${data.totalSignups}</strong> on waitlist
-      </span>
-    `;
-
-  } catch {
-
-    document.getElementById('stats').innerHTML = `
-      <span class="live-dot"></span>
-      <span class="live-text">
-        Waitlist open
-      </span>
-    `;
-
-  }
-}
+/* ── Notifications ──────────────────────────────────────────── */
 
 function showNotification(message, type) {
   const n = document.getElementById('notification');
   n.textContent = message;
   n.className = `notification ${type}`;
   n.classList.add('show');
-  setTimeout(() => {
-    n.classList.remove('show');
-  }, 4000);
+  setTimeout(() => n.classList.remove('show'), 4000);
 }
 
-async function handleSubmit(e) {
+/* ── Waitlist count ─────────────────────────────────────────── */
 
+async function loadStats() {
+  try {
+    const response = await fetch('/api/stats');
+    const data = await response.json();
+    document.getElementById('stats').innerHTML = `
+      <span class="live-dot"></span>
+      <span class="live-text"><strong>${data.totalSignups}</strong> on waitlist</span>
+    `;
+  } catch {
+    document.getElementById('stats').innerHTML = `
+      <span class="live-dot"></span>
+      <span class="live-text">Waitlist open</span>
+    `;
+  }
+}
+
+/* ── Waitlist email form handler ────────────────────────────── */
+
+async function handleWaitlistSubmit(e) {
   e.preventDefault();
-
-  if(isSubmitting) return;
+  if (isSubmitting) return;
 
   const form = e.target;
   const emailInput = form.querySelector('input[type="email"]');
   const button = form.querySelector('button');
-
   const email = emailInput.value.trim();
 
-  if(!email){
-    showNotification('Please enter your email address', 'error');
+  if (!email) {
+    showNotification('Please enter your email address.', 'error');
     return;
   }
 
   isSubmitting = true;
   button.disabled = true;
-  button.textContent = 'Sending...';
+  button.textContent = 'Sending…';
 
   try {
-
     const response = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({
+        email,
+        name: '',
+        company: '',
+        sampleNumber: '',
+        futureOrders: '',
+        query: '',
+        type: 'waitlist'
+      }),
     });
 
     const data = await response.json();
 
-    if(data.success){
+    if (data.success) {
       showNotification(data.message, 'success');
       emailInput.value = '';
       loadStats();
     } else {
       showNotification(data.message, 'error');
     }
-
   } catch {
     showNotification('Network error. Please try again.', 'error');
   } finally {
@@ -1085,8 +1369,70 @@ async function handleSubmit(e) {
   }
 }
 
-document.getElementById('emailForm').addEventListener('submit', handleSubmit);
-document.getElementById('emailFormBottom').addEventListener('submit', handleSubmit);
+/* ── Sample / contact form handler ─────────────────────────── */
+
+async function handleSampleSubmit(e) {
+  e.preventDefault();
+  if (isSampleSubmitting) return;
+
+  const form = e.target;
+  const btn = document.getElementById('sampleSubmitBtn');
+
+  const name         = form.querySelector('#sf_name').value.trim();
+  const company      = form.querySelector('#sf_company').value.trim();
+  const email        = form.querySelector('#sf_email').value.trim();
+  const sampleNumber = form.querySelector('#sf_samples').value.trim();
+  const futureOrders = form.querySelector('#sf_orders').value.trim();
+  const query        = form.querySelector('#sf_query').value.trim();
+
+  if (!name || !company || !email) {
+    showNotification('Please fill in your name, company, and email.', 'error');
+    return;
+  }
+
+  isSampleSubmitting = true;
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const response = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        name,
+        company,
+        sampleNumber,
+        futureOrders,
+        query,
+        type: 'sample'
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      showNotification('Request sent — we\'ll be in touch within 2–3 business days.', 'success');
+      form.reset();
+    } else {
+      showNotification(data.message || 'Something went wrong. Please try again.', 'error');
+    }
+  } catch {
+    showNotification('Network error. Please try again.', 'error');
+  } finally {
+    isSampleSubmitting = false;
+    btn.disabled = false;
+    btn.textContent = 'Send Request';
+  }
+}
+
+/* ── Event listeners ────────────────────────────────────────── */
+
+document.getElementById('emailForm').addEventListener('submit', handleWaitlistSubmit);
+document.getElementById('emailFormBottom').addEventListener('submit', handleWaitlistSubmit);
+document.getElementById('sampleForm').addEventListener('submit', handleSampleSubmit);
+
+/* ── Init ───────────────────────────────────────────────────── */
 
 loadStats();
 setInterval(loadStats, 30000);

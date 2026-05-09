@@ -91,7 +91,7 @@ async function initializeSheetHeaders() {
         range: 'Sheet1!A1:B1',
         valueInputOption: 'RAW',
         resource: {
-          values: [['Email', 'DateTime']]
+          values: [['Type', 'Email', 'Name', 'Company', 'Sample Qty', 'Expected Orders', 'Query', 'DateTime']]
         }
       });
       console.log('📝 Sheet headers initialized');
@@ -111,7 +111,7 @@ async function getAllEmails() {
     const rows = response.data.values || [];
     
     // Skip header row and extract emails
-    const emails = rows.slice(1).map(row => row[0]?.toLowerCase().trim()).filter(Boolean);
+    const emails = rows.slice(1).map(row => row[1]?.toLowerCase().trim()).filter(Boolean);
     
     return emails;
   } catch (error) {
@@ -120,22 +120,29 @@ async function getAllEmails() {
   }
 }
 
-async function addEmail(email) {
+async function addEntry({ email, name, company, sampleNumber, futureOrders, query, type }) {
   try {
     const dateTime = new Date().toISOString();
-    
     await sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID,
-      range: 'Sheet1!A:B',
+      range: 'Sheet1!A:H',
       valueInputOption: 'RAW',
       resource: {
-        values: [[email.toLowerCase(), dateTime]]
+        values: [[
+          type       || 'waitlist',
+          email.toLowerCase().trim(),
+          name       || '',
+          company    || '',
+          sampleNumber  || '',
+          futureOrders  || '',
+          query      || '',
+          dateTime
+        ]]
       }
     });
-
     return true;
   } catch (error) {
-    console.error('Error adding email:', error.message);
+    console.error('Error adding entry:', error.message);
     return false;
   }
 }
@@ -144,7 +151,7 @@ async function getEmailCount() {
   try {
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: SHEET_ID,
-      range: 'Sheet1!A:A',
+      range: 'Sheet1!B:B',
     });
 
     const rows = response.data.values || [];
@@ -182,7 +189,7 @@ app.post('/api/subscribe', limiter, async (req, res) => {
       });
     }
 
-    const { email } = req.body;
+    const { email, name, company, sampleNumber, futureOrders, query, type } = req.body;
 
     // Validate email
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -206,20 +213,20 @@ app.post('/api/subscribe', limiter, async (req, res) => {
     }
 
     // Add new email
-    const added = await addEmail(normalizedEmail);
+    const added = await addEntry({ email, name, company, sampleNumber, futureOrders, query, type });
     
     if (!added) {
-      console.error('❌ Failed to add email');
+      console.error('❌ Failed to add entry');
       return res.status(500).json({ 
         success: false, 
-        message: 'Failed to add email. Please try again.' 
+        message: 'Failed to add entry. Please try again.' 
       });
     }
 
     // Get total signups
     const totalSignups = await getEmailCount();
     
-    console.log('✅ Email added successfully:', normalizedEmail, '| Total:', totalSignups);
+    console.log('✅ Entry added successfully:', normalizedEmail, '| Total:', totalSignups);
 
     res.status(201).json({ 
       success: true, 
