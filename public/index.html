@@ -267,9 +267,63 @@ body.light-theme .theme-toggle .toggle-thumb{
 
 /* ── Hero ───────────────────────────────────────────────────── */
 
-.hero{
-  padding:110px 0 90px;
-  border-bottom:1px solid var(--border);
+.hero {
+  padding: 110px 0 90px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+  min-height: 560px;
+}
+
+.hero-content {
+  flex: 0 0 55%;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  display: block;
+  transform: scale(1.5);          /* ← adjust between 0.6–0.95 to taste */
+  transform-origin: right center; /* ← scales inward from the right edge */
+  mask-image: linear-gradient(to right, transparent 0%, black 35%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  display: block;
+  mask-image: linear-gradient(to right, transparent 0%, black 35%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
+}
+/* Responsive: stack on mobile */
+@media (max-width: 700px) {
+  .hero {
+    flex-direction: column;
+    min-height: unset;
+  }
+  .hero-content { flex: unset; width: 100%; }
+  .hero-image {
+    flex: unset;
+    width: 100%;
+    margin-right: 0;
+    justify-content: center;
+  }
+  .hero-image img {
+    mask-image: none;
+    -webkit-mask-image: none;
+    max-width: 100%;
+  }
 }
 
 .hero-label{
@@ -359,7 +413,10 @@ textarea:focus{
   color:var(--bg);
   background:var(--accent);
   transition:all 0.25s ease;
-  white-space:nowrap;
+  white-space:nowrap;.hero{
+  padding:110px 0 90px;
+  border-bottom:1px solid var(--border);
+}
 }
 
 .cta-btn:hover{
@@ -860,36 +917,41 @@ footer{padding:70px 0;}
 
 <section class="hero">
 
-  <div class="hero-label">
-    Made in India · Drone Communication Systems
+  <div class="hero-content">
+    <div class="hero-label">
+      Made in India · Drone Communication Systems
+    </div>
+
+    <h1>
+      <span class="iris-name">IRIS</span> — mission-critical<br>
+      <strong>wireless video for drones</strong>
+    </h1>
+
+    <p class="tagline">
+      A production-grade communication and control layer for drones and
+      robotic systems. Low-latency digital video, multi-protocol telemetry,
+      and a complete SDK Support — built in India, engineered for the world.
+    </p>
+
+    <form class="email-form" id="emailForm">
+      <input
+        type="email"
+        id="emailInput"
+        placeholder="Your email address"
+        required
+        autocomplete="email"
+      >
+      <button type="submit" class="cta-btn">
+        Join Waitlist
+      </button>
+    </form>
   </div>
 
-  <h1>
-    <span class="iris-name">IRIS</span> — mission-critical<br>
-    <strong>wireless video for drones</strong>
-  </h1>
-
-  <p class="tagline">
-    A production-grade communication and control layer for drones and
-    robotic systems. Low-latency digital video, multi-protocol telemetry,
-    and a complete SDK Support — built in India, engineered for the world.
-  </p>
-
-  <form class="email-form" id="emailForm">
-    <input
-      type="email"
-      id="emailInput"
-      placeholder="Your email address"
-      required
-      autocomplete="email"
-    >
-    <button type="submit" class="cta-btn">
-      Join Waitlist
-    </button>
-  </form>
+  <div class="hero-image">
+    <img src="product_banner_.png" alt="IRIS Drone Communication System">
+  </div>
 
 </section>
-
 <!-- ── Data bar ───────────────────────────────────────────────── -->
 
 <div class="data-bar">
