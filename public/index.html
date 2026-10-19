@@ -552,6 +552,32 @@ textarea:focus{
   margin-top:42px;
 }
 
+.specs-version-title{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:28px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--border-strong);
+}
+
+.specs-version-title .badge{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.06em;
+  padding:3px 8px;
+  border-radius:3px;
+  background:var(--bg2);
+  border:1px solid var(--border-strong);
+  color:var(--highlight);
+  text-transform:uppercase;
+}
+
 .specs-group{
   margin-bottom:40px;
 }
@@ -1036,7 +1062,7 @@ footer{padding:70px 0;}
       </h2>
 
       <p class="section-text">
-        IRIS is a high-performance, modular drone communication system engineered
+        IRIS v0 is a high-performance, modular drone communication system engineered
         for demanding OEM integration, defense, inspection, and FPV applications.
         Delivering 1080p at 90 FPS with sub-50 ms latency over 7 km, it sets a
         new bar for real-world reliability — every parameter, from physical form
@@ -1044,6 +1070,12 @@ footer{padding:70px 0;}
       </p>
 
       <div class="specs-block">
+
+        <!-- IRIS v0 — Current Features -->
+        <div class="specs-version-title">
+          <span>IRIS v0 — Current Features</span>
+          <span class="badge">Current</span>
+        </div>
 
         <!-- Camera Interfaces -->
         <div class="specs-group">
@@ -1138,6 +1170,23 @@ footer{padding:70px 0;}
           <div class="spec-row">
             <div class="spec-name">Developer Access</div>
             <div class="spec-value">Full SDK with technical support for OEM integration</div>
+          </div>
+        </div>
+
+        <!-- Upcoming Features -->
+        <div class="specs-version-title" style="margin-top:56px;">
+          <span>Upcoming Features</span>
+          <span class="badge" style="color:var(--text-dim); border-color:var(--border);">Upcoming</span>
+        </div>
+
+        <div class="specs-group">
+          <div class="spec-row">
+            <div class="spec-name">Range</div>
+            <div class="spec-value"><span class="num">20 km</span>transmission range</div>
+          </div>
+          <div class="spec-row">
+            <div class="spec-name">Camera Stream</div>
+            <div class="spec-value">Dual camera stream support</div>
           </div>
         </div>
 
@@ -1312,9 +1361,9 @@ footer{padding:70px 0;}
         for drones and robotic systems. Product: IRIS.
       </p>
       <div class="socials">
-        <a href="mailto:servadrone@gmail.com">Email</a>
+        <a href="mailto:miliwatt.electronics@gmail.com">Email</a>
         <a href="https://www.youtube.com/@servadrone" target="_blank">YouTube</a>
-        <a href="https://www.linkedin.com/company/servadrone/" target="_blank">LinkedIn</a>
+        <a href="https://www.linkedin.com/company/miliwatt/" target="_blank">LinkedIn</a>
       </div>
     </div>
 
